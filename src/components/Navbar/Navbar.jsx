@@ -5,19 +5,22 @@ import {NavLink} from "react-router-dom";
 const Navbar = () => {
     return <nav className={classes.nav}>
         <div className={classes.item}>
-            <NavLink to={'/profile'}>Profile</NavLink>
+            <NavLink to={'/project'} activeClassName={classes.active}>Задачи</NavLink>
         </div>
         <div className={classes.item}>
-            <NavLink to={'/dialogs'}>Messages</NavLink>
+            <NavLink to={'/notes'} activeClassName={classes.active}>Заметки</NavLink>
         </div>
         <div className={classes.item}>
-            <a>News</a>
+            <NavLink to={'/dialogs'} activeClassName={classes.active}>Сообщения</NavLink>
         </div>
         <div className={classes.item}>
-            <a>Settings</a>
+            <a>Подписки</a>
         </div>
         <div className={classes.item}>
-            <a>About</a>
+            <a>Настройки</a>
+        </div>
+        <div className={classes.item}>
+            <a>Проекты</a>
         </div>
     </nav>
 }

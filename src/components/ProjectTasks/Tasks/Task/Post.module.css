@@ -1,0 +1,24 @@
+.post {
+    display: grid;
+    margin-top: 1vh;
+    grid-template-columns: 1fr 10fr;
+    background-color: white;
+    border-radius: 5px;
+    border-style: solid;
+}
+
+.post img {
+    width: 50px;
+    border-style: solid;
+    border-radius: 30px;
+    border-color: black;
+}
+
+.avatarAndDateBlock {
+    text-align: center;
+    margin: 1vh;
+}
+
+.text {
+    text-align: justify;
+}

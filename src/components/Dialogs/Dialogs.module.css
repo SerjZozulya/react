@@ -1,0 +1,34 @@
+.dialogsPage {
+    display: grid;
+    font-family: "Comic Sans MS";
+    grid-template-columns: 3fr 10fr;
+}
+
+.dialogs {
+    font-size: 140%;
+    background-color: #e0f0f8;
+}
+
+.contacts {
+    font-family: "Comic Sans MS";
+    font-weight: bold;
+    color: #002448;
+    text-align: center;
+    background-color: #0076c7;
+}
+
+.item {
+
+}
+
+.messages {
+    font-size: 3vh;
+    background-color: #cccccc;
+    font-family: "Arial";
+    padding: 2vw;
+    height: 100vh;
+}
+
+.messsage {
+
+}
