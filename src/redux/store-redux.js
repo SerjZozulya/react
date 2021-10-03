@@ -3,8 +3,8 @@ import projectReducer from "./project-reducer";
 import messagesReducer from "./messages-reducer";
 
 let reducers = combineReducers({
-    projectReducer: projectReducer,
-    messagesReducer: messagesReducer
+    tasksData: projectReducer,
+    messagesPage: messagesReducer
 })
 
 let store = createStore(reducers)
