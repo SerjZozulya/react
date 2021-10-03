@@ -1,0 +1,11 @@
+.message {
+    background-color: white;
+    margin-bottom: 2px;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+.sendTime {
+    font-size: 12pt;
+    color: #002448;
+}

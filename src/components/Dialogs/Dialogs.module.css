@@ -1,12 +1,16 @@
 .dialogsPage {
     display: grid;
     font-family: "Comic Sans MS";
+    grid-template:  "a b"
+                    "a c";
     grid-template-columns: 3fr 10fr;
 }
 
 .dialogs {
     font-size: 140%;
     background-color: #e0f0f8;
+    grid-area: a;
+
 }
 
 .contacts {
@@ -22,13 +26,41 @@
 }
 
 .messages {
+    max-height: 400px;
     font-size: 3vh;
     background-color: #cccccc;
     font-family: "Arial";
-    padding: 2vw;
-    height: 100vh;
+    padding: 25px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: scroll;
 }
 
-.messsage {
+.newMessage {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    width: 100%;
+}
 
+.newMessageTA {
+    margin: 2px;
+    height: 150px;
+    resize: none;
+}
+
+.buttonsBlock {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.sendMessage {
+}
+
+.addFile {
+}
+
+.recordVoice {
 }

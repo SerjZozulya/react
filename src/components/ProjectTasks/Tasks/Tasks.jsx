@@ -1,18 +1,21 @@
 import s from './Posts.module.css'
 import Post from "./Task/Post";
 import * as React from "react";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/project-reducer";
 
 const Tasks = (props) => {
 
     let newPostText = React.createRef()
 
     let addPost = () => {
-        props.addTask()
+        let action = addPostActionCreator()
+        props.dispatch(action)
     }
 
     let onPostChange = () => {
         let text = newPostText.current.value
-        props.updateNewPostText(text)
+        let action = updateNewPostTextActionCreator(text)
+        props.dispatch(action)
     }
 
 

@@ -8,10 +8,9 @@ const Project = (props) => {
             Текущий проект - Система отслеживания задач по разработке системы отслеживания задач
         </div>
         <Tasks
-            addTask={props.addTask}
             tasks = {props.tasksData.tasks}
             newTaskText = {props.tasksData.newTaskText}
-            updateNewPostText = {props.updateNewPostText}
+            dispatch = {props.dispatch}
         />
     </div>
 }
