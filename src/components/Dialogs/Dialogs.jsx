@@ -2,28 +2,22 @@ import React from 'react'
 import s from './Dialogs.module.css'
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import {
-    sendMessageActionCreator,
-    updateNewMessageTextActionCreator,
-} from "../../redux/messages-reducer";
 
 const Dialogs = (props) => {
 
     let newMessageText = React.createRef()
 
     let sendMessage = () => {
-        let action = sendMessageActionCreator()
-        props.dispatch(action)
+        props.sendMessage()
     }
 
     let onNewMessageBodyChange = () => {
         let text = newMessageText.current.value
-        let action = updateNewMessageTextActionCreator(text)
-        props.dispatch(action)
+        props.onNewMessageBodyChange(text)
     }
 
-    let contactsElements = props.messagesData.contacts.map(el => <DialogItem id = {el.id} name={el.name}/>)
-    let messages = props.messagesData.messages.map(m => <Message id = {m.id} text={m.text} dateAndTime = {m.dateAndTime}/>)
+    let contactsElements = props.contacts.map(el => <DialogItem id = {el.id} name={el.name}/>)
+    let messages = props.messages.map(m => <Message id = {m.id} text={m.text} dateAndTime = {m.dateAndTime}/>)
         .reverse()
 
     return <div className={s.dialogsPage}>
@@ -38,7 +32,7 @@ const Dialogs = (props) => {
             <textarea placeholder={'Напишите    сообщение...'}
                       className={s.newMessageTA}
                       ref = {newMessageText}
-                      value={props.messagesData.newMessageText}
+                      value={props.newMessageText}
                       onChange={onNewMessageBodyChange}
             />
             <div className={s.buttonsBlock}>

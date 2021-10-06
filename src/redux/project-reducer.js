@@ -17,6 +17,7 @@ let initState = {
 
 const projectReducer = (state = initState, action) => {
     switch (action.type) {
+
         case ADD_TASK:
             let now = new Date()
             let newTask = {
@@ -29,9 +30,11 @@ const projectReducer = (state = initState, action) => {
             state.tasks.push(newTask)
             state.newTaskText = ''
             return state
+
         case UPDATE_NEW_POST_TEXT:
             state.newTaskText = action.newText;
             return state
+
         default: return state
     }
 }
