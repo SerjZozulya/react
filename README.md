@@ -1,4 +1,4 @@
 # RomanNetwork
 development control system
 
-![GUI](https://github.com/SerjZozulya/SimpleEQ/blob/master/Screenshot.png "Screenshot")
+![GUI](https://raw.githubusercontent.com/SerjZozulya/RomanNetwork/master/screenshot.png "Screenshot")
