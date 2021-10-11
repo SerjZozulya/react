@@ -1,7 +1,32 @@
 import Dialogs from "./Dialogs";
 import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "../../redux/messages-reducer";
+import {connect} from "react-redux";
+import Tasks from "../ProjectTasks/Tasks/Tasks";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../redux/project-reducer";
 
-const DialogsContainer = (props) => {
+let mapStateToProps = (state) => {
+    return {
+        messages: state.messagesData.messages,
+        contacts: state.messagesData.contacts,
+        newMessageText: state.messagesData.newMessageText
+    }
+}
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        onNewMessageBodyChange: (text) => {
+            let action = updateNewMessageTextActionCreator(text)
+            dispatch(action)
+        },
+        sendMessage: () => {
+            let action = sendMessageActionCreator()
+            dispatch(action)
+        }
+    }
+}
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+/*(props) => {
     let state = props.store.getState()
 
     let sendMessage = () => {
@@ -20,6 +45,6 @@ const DialogsContainer = (props) => {
                     contacts = {state.messagesData.contacts}
                     newMessageText = {state.messagesData.newMessageText}
     />
-}
+}*/
 
 export default DialogsContainer

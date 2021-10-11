@@ -10,13 +10,7 @@ let initialState = {
         {id: 4, name: 'Птица Детектив'},
         {id: 5, name: 'Лёха'},
         {id: 6, name: 'Саня'},
-        {id: 7, name: 'Микрочелик1'},
-        {id: 8, name: 'Микрочелик2'},
-        {id: 9, name: 'Микрочелик3'},
-        {id: 10, name: 'Микрочелик4'},
-        {id: 11, name: 'Микрочелик5'},
-        {id: 12, name: 'Микрочелик6'},
-        {id: 13, name: 'Микрочелик7'},
+        {id: 7, name: 'Микрочелик'},
     ],
     messages: [
         {id: 0, text: 'Вынес дату в массив вне компоненты', dateAndTime: '26.09.2021\n21:16'},
@@ -34,7 +28,6 @@ let initialState = {
 }
 
 const messagesReducer = (state = initialState, action) => {
-    debugger
     switch (action.type) {
         case SEND_MESSAGE:
             let now = new Date()
@@ -45,14 +38,14 @@ const messagesReducer = (state = initialState, action) => {
                     + '\n' + now.getHours()
                     + ':' + now.getMinutes()
             }
-            state.messages.push(newMessage)
-            state.newMessageText = ''
-            debugger
-            return state
+            return {
+                ...state,
+                newMessageText: '',
+                messages: [...state.messages, newMessage]
+            }
 
         case UPDATE_NEW_MESSAGE_BODY:
-            state.newMessageText = action.newText;
-            return state
+            return {...state, newMessageText: action.newText}
 
         default: return state
     }

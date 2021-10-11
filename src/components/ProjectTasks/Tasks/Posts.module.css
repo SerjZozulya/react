@@ -6,3 +6,13 @@
 button {
     margin: 2vh;
 }
+
+.ta {
+    width: 600px;
+    height: 100px;
+    resize: none;
+}
+
+select {
+    width: 120px;
+}
