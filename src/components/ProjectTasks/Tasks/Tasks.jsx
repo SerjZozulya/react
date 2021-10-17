@@ -29,7 +29,7 @@ const Tasks = (props) => {
                                             text = {p.text}
                                             status = {p.status}
                                             id = {p.id}
-                                            type = {p.type}
+                                            type = {p.taskType}
     />)).reverse()
 
     return <div className={s.tasks}>

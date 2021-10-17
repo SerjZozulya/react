@@ -1,11 +1,17 @@
-import Tasks from "./Tasks";
-import {addPostActionCreator, setTasksAC, updateNewPostTextActionCreator} from "../../../redux/project-reducer";
+import Tasks from "./TasksClass";
+import {
+    addPostActionCreator,
+    setTasksAC,
+    updateNewPostTextActionCreator,
+    updateTaskTypeActionCreator
+} from "../../../redux/project-reducer";
 import {connect} from "react-redux";
 
 let mapStateToProps = (state) => {
     return {
         tasks: state.tasksData.tasks,
-        newTaskText: state.tasksData.newTaskText
+        newTaskText: state.tasksData.newTaskText,
+        taskType: state.tasksData.taskType
     }
 }
 
@@ -21,6 +27,10 @@ let mapDispatchToProps = (dispatch) => {
         },
         setTasks: (tasks) => {
             let action = setTasksAC(tasks)
+            dispatch(action)
+        },
+        updateTaskType: (taskType) => {
+            let action = updateTaskTypeActionCreator(taskType)
             dispatch(action)
         }
     }

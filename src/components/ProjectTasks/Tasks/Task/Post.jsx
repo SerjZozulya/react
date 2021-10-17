@@ -14,7 +14,7 @@ const Post = (props) => {
             </div>
         </div>
         <div className={s.statusBar}>
-            <div>Type: {props.type} Status: {props.status}</div>
+            <div>Type: {props.taskType} Status: {props.status}</div>
         </div>
     </div>
 }
