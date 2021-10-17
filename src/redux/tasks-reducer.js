@@ -4,6 +4,7 @@ const ADD_TASK = 'ADD-TASK'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_TASKS = 'SET-TASKS'
 const UPDATE_TASK_TYPE = 'UPDATE-TASK-TYPE'
+const UPDATE_STATUS = 'UPDATE_STATUS'
 
 const SOLVED = 'SOLVED'
 const IN_PROGRESS = 'IN PROGRESS'
@@ -15,10 +16,11 @@ const TASK = 'TASK'
 let initState = {
     tasks: [],
     newTaskText: '',
-    taskType: BUG
+    taskType: TASK,
+    status: ACTIVE
 }
 
-const projectReducer = (state = initState, action) => {
+const tasksReducer = (state = initState, action) => {
     switch (action.type) {
 
         case ADD_TASK:
@@ -26,12 +28,14 @@ const projectReducer = (state = initState, action) => {
             let newTask = {
                 text: state.newTaskText,
                 taskType: state.taskType,
-                status: IN_PROGRESS,
+                status: state.status,
                 pubDate: now.toLocaleDateString(),
                 time: now.getHours() + ':' + now.getMinutes()
             }
 
-            axios.post("http://localhost:8080/api/addTask", newTask).then(r => {})
+            axios.post("http://localhost:8080/api/addTask", newTask).then(r => {
+                console.log('success')
+            })
 
              return {
                 ...state,
@@ -49,6 +53,11 @@ const projectReducer = (state = initState, action) => {
                 ...state, taskType: action.taskType
             }
 
+        case UPDATE_STATUS:
+            return {
+                ...state, status: action.status
+            }
+
         case SET_TASKS:
             return  {...state, tasks: [...action.tasks]}
 
@@ -56,9 +65,10 @@ const projectReducer = (state = initState, action) => {
     }
 }
 
-export const addPostActionCreator = () => ({type: ADD_TASK})
-export const updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text})
+export const addPostAC = () => ({type: ADD_TASK})
+export const updateNewPostTextAC = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text})
 export const setTasksAC = (tasks) => ({type: SET_TASKS, tasks: tasks})
-export const updateTaskTypeActionCreator = (taskType) => ({type: UPDATE_TASK_TYPE, taskType: taskType})
+export const updateTaskTypeAC = (taskType) => ({type: UPDATE_TASK_TYPE, taskType: taskType})
+export const updateStatusAC = (status) => ({type: UPDATE_STATUS, status: status})
 
-export default projectReducer
+export default tasksReducer

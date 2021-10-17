@@ -1,10 +1,10 @@
 import {combineReducers, createStore} from "redux";
-import projectReducer from "./project-reducer";
+import tasksReducer from "./tasks-reducer";
 import messagesReducer from "./messages-reducer";
 import newsReducer from "./news-reducer";
 
 let reducers = combineReducers({
-    tasksData: projectReducer,
+    tasksData: tasksReducer,
     messagesData: messagesReducer,
     newsPage: newsReducer
 })

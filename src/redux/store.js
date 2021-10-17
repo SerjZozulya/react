@@ -1,4 +1,4 @@
-import projectReducer from "./project-reducer";
+import tasksReducer from "./tasks-reducer";
 import messagesReducer from "./messages-reducer";
 
 let store = {
@@ -55,7 +55,7 @@ let store = {
     },
 
     dispatch(action) {
-        this._state.tasksData = projectReducer(this._state.tasksData, action)
+        this._state.tasksData = tasksReducer(this._state.tasksData, action)
         this._state.messagesPage = messagesReducer(this._state.messagesPage, action)
 
         this._callSubscriber(this._state)
