@@ -1,27 +1,61 @@
-import s from './Posts.module.css'
+import s from './Tasks.module.css'
 import * as React from "react";
+import Post from "./Task/Post";
 
-const Tasks = (props) => {
+let Tasks = (props) => {
+
+    let selectedVal = props.selectedProject.id
+    console.log(selectedVal)
+
+    let tasks = props.tasks.map(p => (<Post key={p.id}
+                                            id={p.id}
+                                            pubDate={p.pubDate}
+                                            time={p.time}
+                                            text={p.text}
+                                            status={p.status}
+                                            taskType={p.taskType}
+                                            deleteTask={props.deleteTask}
+    />)).reverse()
+
+    let projects = props.projects.map(p => <option value={p.id}>{p.name}</option>)
+
     return <div className={s.tasks}>
         <div>
-            <textarea
-                className={s.ta}
-                ref={props.newPostTextRef}
-                value={props.newTaskText}
-                onChange={props.onPostChange}
-            />
+            Текущий проект - <select onChange={props.onProjectChange}
+                                     value={selectedVal}
+                                     ref={props.selectedProjRef}
+                                     style={{width: 'auto'}
+
+                                     }>{projects}</select>
         </div>
-        <div>
+
+        <div style={{
+            fontWeight: 1000,
+            fontFamily: 'Lucida Console',
+            marginTop: 30 + 'px',
+            marginBottom: 5 + 'px'
+        }}>Создать задачу
+        </div>
+
+        <textarea
+            className={s.ta}
+            ref={props.newPostTextRef}
+            value={props.newTaskText}
+            onChange={props.onPostChange}
+        />
+
+
+        <div className={s.settings}>
             Тип задачи: <select value={props.taskType}
                                 onChange={props.onTypeChange}
                                 ref={props.taskTypeRef}
         >
-                <option>TASK</option>
-                <option>BUG</option>
-            </select>
-            Статус: <select value={props.status}
-                            onChange={props.onStatusChange}
-                            ref={props.statusRef}
+            <option>TASK</option>
+            <option>BUG</option>
+        </select>
+            {` Статус:`} <select value={props.status}
+                                 onChange={props.onStatusChange}
+                                 ref={props.statusRef}
         >
             <option>SOLVED</option>
             <option>IN PROGRESS</option>
@@ -29,9 +63,10 @@ const Tasks = (props) => {
         </select>
             <button onClick={props.addTask}>Add New Task</button>
         </div>
+
         My Tasks
         <div>
-            {props.tasks}
+            {tasks}
         </div>
     </div>
 }

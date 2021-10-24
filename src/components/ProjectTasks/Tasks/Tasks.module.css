@@ -5,12 +5,18 @@
 
 button {
     margin: 2vh;
+    font-family: "Lucida Console";
 }
 
 .ta {
     width: 600px;
     height: 100px;
     resize: none;
+    padding: 7px;
+}
+
+.settings {
+
 }
 
 select {

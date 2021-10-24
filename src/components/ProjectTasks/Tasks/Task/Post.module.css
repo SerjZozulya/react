@@ -7,7 +7,7 @@
 
 .post {
     display: grid;
-    grid-template-columns: 1fr 10fr;
+    grid-template-columns: 1fr 10fr 0.1fr;
 
 }
 
@@ -23,11 +23,37 @@
     margin: 1vh;
 }
 
+.bugType {
+    font-weight: bold;
+    color: red;
+}
+
+.taskType {
+    color: #000ade;
+    font-weight: bold;
+}
+
 .text {
     text-align: justify;
     margin-top: 5px;
+    font-weight: normal;
+    margin-right: 50px;
+    font-size: 16px;
 }
 
+.options {
+
+}
+
+.options img {
+    width: 18px;
+    border: none;
+    border-radius: 0;
+}
+
+.options img:hover {
+    cursor: pointer;
+}
 
 .statusBar {
     height: 20px;

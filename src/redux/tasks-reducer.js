@@ -5,6 +5,9 @@ const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_TASKS = 'SET-TASKS'
 const UPDATE_TASK_TYPE = 'UPDATE-TASK-TYPE'
 const UPDATE_STATUS = 'UPDATE_STATUS'
+const DEL_TASK = 'DEL_TASK'
+const SET_PROJECTS = 'SET_PROJECTS'
+const CHANGE_PROJECT = 'CHANGE_PROJECT'
 
 const SOLVED = 'SOLVED'
 const IN_PROGRESS = 'IN PROGRESS'
@@ -14,6 +17,8 @@ const BUG = 'BUG'
 const TASK = 'TASK'
 
 let initState = {
+    projects: [],
+    selectedProject: {},
     tasks: [],
     newTaskText: '',
     taskType: TASK,
@@ -59,16 +64,36 @@ const tasksReducer = (state = initState, action) => {
             }
 
         case SET_TASKS:
-            return  {...state, tasks: [...action.tasks]}
+            return  {...state,
+                tasks: [...action.tasks]}
+
+        case SET_PROJECTS:
+            return  {...state, projects: action.projects}
+
+        case CHANGE_PROJECT:
+            console.log(action)
+            return {...state, selectedProject: state.projects[action.project.valueOf()]}
+
+        case DEL_TASK:
+
+            axios.post("http://localhost:8080/api/delTask", {id: action.id}).then(r => {
+                console.log('success')
+            })
+
+            state.tasks.splice(state.tasks.findIndex(e => e.id === action.id), 1)
+            return  {...state, tasks: [...state.tasks]}
 
         default: return state
     }
 }
 
-export const addPostAC = () => ({type: ADD_TASK})
-export const updateNewPostTextAC = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text})
-export const setTasksAC = (tasks) => ({type: SET_TASKS, tasks: tasks})
-export const updateTaskTypeAC = (taskType) => ({type: UPDATE_TASK_TYPE, taskType: taskType})
-export const updateStatusAC = (status) => ({type: UPDATE_STATUS, status: status})
+export const addTask = () => ({type: ADD_TASK})
+export const deleteTask = (id) => ({type: DEL_TASK, id: id})
+export const updateNewPostText = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text})
+export const setTasks = (tasks) => ({type: SET_TASKS, tasks: tasks})
+export const updateTaskType = (taskType) => ({type: UPDATE_TASK_TYPE, taskType: taskType})
+export const updateStatus = (status) => ({type: UPDATE_STATUS, status: status})
+export const setProjects = (projects) => ({type: SET_PROJECTS, projects: projects})
+export const changeProject = (project) => ({type: CHANGE_PROJECT, project: project})
 
 export default tasksReducer

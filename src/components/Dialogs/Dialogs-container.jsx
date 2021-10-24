@@ -2,7 +2,7 @@ import Dialogs from "./Dialogs";
 import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "../../redux/messages-reducer";
 import {connect} from "react-redux";
 import Tasks from "../ProjectTasks/Tasks/Tasks";
-import {addPostAC, updateNewPostTextAC} from "../../redux/tasks-reducer";
+import {addTask, updateNewPostText} from "../../redux/tasks-reducer";
 
 let mapStateToProps = (state) => {
     return {

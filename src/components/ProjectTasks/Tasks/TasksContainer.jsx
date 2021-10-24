@@ -1,27 +1,35 @@
 import Tasks from "./Tasks";
 import {
-    addPostAC,
-    setTasksAC,
-    updateNewPostTextAC,
-    updateTaskTypeAC,
-    updateStatusAC,
+    addTask,
+    setTasks,
+    updateNewPostText,
+    updateTaskType,
+    updateStatus,
+    deleteTask, setProjects,
+    changeProject
 } from "../../../redux/tasks-reducer";
 import {connect} from "react-redux";
 import React from "react";
 import axios from "axios";
-import Post from "./Task/Post";
 
 class TasksContainer extends React.Component {
 
     newTextRef = React.createRef()
     taskTypeRef = React.createRef()
     statusRef = React.createRef()
+    selectedProjRef = React.createRef()
 
     componentDidMount() {
-        axios.get("http://localhost:8080/api/getTasks").then(response => {
+        axios.get("http://localhost:8080/api/getProjects").then(response => {
+            this.props.setProjects(response.data)
+        })
+
+        let id = this.props.selectedProject
+        axios.get(`http://localhost:8080/api/getTasks/${id}`).then(response => {
             this.props.setTasks(response.data)
         })
     }
+
 
     addTask = () => {
         this.props.addTask()
@@ -42,17 +50,19 @@ class TasksContainer extends React.Component {
         this.props.updateStatus(status)
     }
 
-
-    tasks = this.props.tasks.map(p => (<Post pubDate={p.pubDate}
-                                             time={p.time}
-                                             text={p.text}
-                                             status={p.status}
-                                             id={p.id}
-                                             taskType={p.taskType}
-    />)).reverse()
+    onProjectChange = (e) => {
+        let project = e.target.value
+        this.props.changeProject(project)
+        axios.get(`http://localhost:8080/api/getTasks/${project.valueOf()}`).then(response => {
+            this.props.setTasks(response.data)
+        })
+    }
 
     render() {
-        return <Tasks tasks = {this.tasks}
+        return <Tasks tasks = {this.props.tasks}
+                      projects = {this.props.projects}
+                      selectedProject = {this.props.selectedProject}
+                      deleteTask = {this.props.deleteTask}
 
                       newTaskText = {this.props.newTaskText}
                       taskType = {this.props.taskType}
@@ -61,10 +71,13 @@ class TasksContainer extends React.Component {
                       newPostTextRef = {this.newTextRef}
                       taskTypeRef = {this.taskTypeRef}
                       statusRef = {this.statusRef}
+                      selectedProjRef = {this.selectedProjRef}
 
                       onTypeChange = {this.onTypeChange}
                       onPostChange = {this.onPostChange}
                       onStatusChange = {this.onStatusChange}
+                      addTask = {this.addTask}
+                      onProjectChange = {this.onProjectChange}
         />
     }
 }
@@ -72,35 +85,23 @@ class TasksContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         tasks: state.tasksData.tasks,
+        projects: state.tasksData.projects,
         newTaskText: state.tasksData.newTaskText,
         taskType: state.tasksData.taskType,
-        status: state.tasksData.status
+        status: state.tasksData.status,
+        selectedProject: state.tasksData.selectedProject
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        updateNewPostText: (text) => {
-            let action = updateNewPostTextAC(text)
-            dispatch(action)
-        },
-        addTask: () => {
-            let action = addPostAC()
-            dispatch(action)
-        },
-        setTasks: (tasks) => {
-            let action = setTasksAC(tasks)
-            dispatch(action)
-        },
-        updateTaskType: (taskType) => {
-            let action = updateTaskTypeAC(taskType)
-            dispatch(action)
-        },
-        updateStatus: (status) => {
-            let action = updateStatusAC(status)
-            dispatch(action)
-        }
-    }
-}
+export default connect(mapStateToProps,
+    {updateNewPostText,
+        addTask,
+        setTasks,
+        updateTaskType,
+        updateStatus,
+        deleteTask,
+        setProjects,
+        changeProject
+    })
+(TasksContainer)
 
-export default connect(mapStateToProps, mapDispatchToProps)(TasksContainer)
