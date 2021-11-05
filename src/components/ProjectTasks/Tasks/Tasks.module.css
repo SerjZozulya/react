@@ -3,6 +3,19 @@
     margin-top: 2vh;
 }
 
+.projectsBlock {
+    display: flex;
+}
+
+.projectsBlock img {
+    width: 15px;
+    margin: 3px 3px 3px 10px;
+}
+
+.projectsBlock img:hover {
+    cursor: pointer;
+}
+
 button {
     margin: 2vh;
     font-family: "Lucida Console";

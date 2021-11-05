@@ -6,11 +6,11 @@ import {
     updateTaskType,
     updateStatus,
     deleteTask, setProjects,
-    changeProject
+    changeProject, getTasks,
+    getProjects
 } from "../../../redux/tasks-reducer";
 import {connect} from "react-redux";
 import React from "react";
-import axios from "axios";
 
 class TasksContainer extends React.Component {
 
@@ -20,19 +20,22 @@ class TasksContainer extends React.Component {
     selectedProjRef = React.createRef()
 
     componentDidMount() {
-        axios.get("http://localhost:8080/api/getProjects").then(response => {
-            this.props.setProjects(response.data)
-        })
-
-        let id = this.props.selectedProject
-        axios.get(`http://localhost:8080/api/getTasks/${id}`).then(response => {
-            this.props.setTasks(response.data)
-        })
+        this.props.getProjects()
+        this.props.getTasks(this.props.selectedProject.id)
     }
 
-
     addTask = () => {
-        this.props.addTask()
+
+        let now = new Date()
+        let newTask = {
+            text: this.props.newTaskText,
+            taskType: this.props.taskType,
+            status: this.props.status,
+            pubDate: now.toLocaleDateString(),
+            time: now.getHours() + ':' + now.getMinutes(),
+            projectId: this.props.selectedProject.id,
+        }
+        this.props.addTask(newTask)
     }
 
     onPostChange = () => {
@@ -53,16 +56,13 @@ class TasksContainer extends React.Component {
     onProjectChange = (e) => {
         let project = e.target.value
         this.props.changeProject(project)
-        axios.get(`http://localhost:8080/api/getTasks/${project.valueOf()}`).then(response => {
-            this.props.setTasks(response.data)
-        })
+        this.props.getTasks(project.valueOf())
     }
 
     render() {
         return <Tasks tasks = {this.props.tasks}
                       projects = {this.props.projects}
                       selectedProject = {this.props.selectedProject}
-                      deleteTask = {this.props.deleteTask}
 
                       newTaskText = {this.props.newTaskText}
                       taskType = {this.props.taskType}
@@ -77,6 +77,7 @@ class TasksContainer extends React.Component {
                       onPostChange = {this.onPostChange}
                       onStatusChange = {this.onStatusChange}
                       addTask = {this.addTask}
+                      deleteTask = {this.props.deleteTask}
                       onProjectChange = {this.onProjectChange}
         />
     }
@@ -101,7 +102,9 @@ export default connect(mapStateToProps,
         updateStatus,
         deleteTask,
         setProjects,
-        changeProject
+        changeProject,
+        getTasks,
+        getProjects
     })
 (TasksContainer)
 

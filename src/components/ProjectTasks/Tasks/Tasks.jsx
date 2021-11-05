@@ -1,11 +1,11 @@
 import s from './Tasks.module.css'
 import * as React from "react";
 import Post from "./Task/Post";
+import del from '../../../assets/img/del.png'
+import edit from '../../../assets/img/edit.jpg'
+import plus from '../../../assets/img/plus.svg'
 
 let Tasks = (props) => {
-
-    let selectedVal = props.selectedProject.id
-    console.log(selectedVal)
 
     let tasks = props.tasks.map(p => (<Post key={p.id}
                                             id={p.id}
@@ -17,16 +17,19 @@ let Tasks = (props) => {
                                             deleteTask={props.deleteTask}
     />)).reverse()
 
-    let projects = props.projects.map(p => <option value={p.id}>{p.name}</option>)
+    let projects = props.projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)
 
     return <div className={s.tasks}>
-        <div>
+        <div className={s.projectsBlock}>
             Текущий проект - <select onChange={props.onProjectChange}
-                                     value={selectedVal}
+                                     value={props.selectedProject.id}
                                      ref={props.selectedProjRef}
                                      style={{width: 'auto'}
 
                                      }>{projects}</select>
+            <img src={plus}/>
+            <img src={del}  alt={"del"}/>
+            <img src={edit} alt={"edit"}/>
         </div>
 
         <div style={{
@@ -61,7 +64,11 @@ let Tasks = (props) => {
             <option>IN PROGRESS</option>
             <option>ACTIVE</option>
         </select>
-            <button onClick={props.addTask}>Add New Task</button>
+            <button
+                disabled={
+                    props.newTaskText === ''
+                }
+                onClick={props.addTask}>Add New Task</button>
         </div>
 
         My Tasks

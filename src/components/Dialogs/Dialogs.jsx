@@ -16,8 +16,16 @@ const Dialogs = (props) => {
         props.onNewMessageBodyChange(text)
     }
 
-    let contactsElements = props.contacts.map(el => <DialogItem id = {el.id} name={el.name}/>)
-    let messages = props.messages.map(m => <Message id = {m.id} text={m.text} dateAndTime = {m.dateAndTime}/>)
+    let contactsElements = props.contacts.map(el => <DialogItem id = {el.id}
+                                                                name={el.name}
+                                                                key = {el.id}
+    />)
+
+    let messages = props.messages.map(m => <Message id = {m.id}
+                                                    text={m.text}
+                                                    dateAndTime = {m.dateAndTime}
+                                                    key = {m.id}
+    />)
         .reverse()
 
     return <div className={s.dialogsPage}>
