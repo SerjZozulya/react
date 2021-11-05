@@ -1,5 +1,5 @@
 # RomanNetwork
-development control system / social network ROMAN. Made with React js + Redux\n
+development control system / social network ROMAN. Made with React js + Redux
 
 Structure:
 1. Components - react components for UI and containers.
