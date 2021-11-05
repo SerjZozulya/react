@@ -1,8 +1,9 @@
 # RomanNetwork
-development control system / social network ROMAN. Made with React js + Redux
+development control system / social network ROMAN. Made with React js + Redux\n
 
-Structure: 1. Components - react components for UI and containers.
-2. api - functions for interacting with the server (axios)
+Structure: \n
+1. Components - react components for UI and containers.\n
+2. api - functions for interacting with the server (axios)\n
 3. Redux - store, reducers (file store.js is not using anymore, it was needed for educational purposes)
 4. Assets - images.
 
