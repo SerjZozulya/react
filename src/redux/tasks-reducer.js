@@ -118,11 +118,12 @@ export const deleteTask = (id) => {
 export const addTask = (newTask) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true))
-
+        debugger
         tasksAPI.addTask(newTask).then(data => {
             if (data.resultCode === 0) {
+                debugger
                 newTask.id = data.id;
-                dispatch(addTask(newTask))
+                dispatch(addTaskToState(newTask))
                 dispatch(toggleIsFetching(false))
             }
         })
