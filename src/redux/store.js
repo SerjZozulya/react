@@ -23,7 +23,6 @@ let store = {
                 {id: 1, name: 'Фарш'},
                 {id: 2, name: 'Гена'},
                 {id: 3, name: 'Semen'},
-                {id: 4, name: 'Птица Детектив'},
                 {id: 5, name: 'Лёха'},
                 {id: 6, name: 'Саня'},
                 {id: 7, name: 'Микрочелик1'},
