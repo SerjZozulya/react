@@ -1,29 +1,33 @@
 import axios from "axios";
 
+const instance = axios.create({
+    baseURL: "http://localhost:8080/api/"
+})
+
 export const tasksAPI = {
     getProjects() {
-        return axios.get("http://localhost:8080/api/getProjects")
+        return instance.get("getProjects")
             .then(response => {
                 return response.data
             })
     },
 
-    getTasks(id) {
-        return axios.get(`http://localhost:8080/api/getTasks/${id}`)
+    getTasks(id: number) {
+        return instance.get("getTasks/" + id)
             .then(response => {
                 return response.data
             })
     },
 
-    addTask(newTask) {
-        return axios.post("http://localhost:8080/api/addTask", newTask)
+    addTask(newTask: any) {
+        return instance.post("addTask", newTask)
             .then(response => {
                 return response.data
             })
     },
 
-    deleteTask(id) {
-        return axios.post("http://localhost:8080/api/delTask", {id: id})
+    deleteTask(id: number) {
+        return instance.post("delTask", {id: id})
             .then(response => {
             return response.data
         })

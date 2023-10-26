@@ -3,9 +3,9 @@ import s from './Dialogs.module.css'
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 
-const Dialogs = (props) => {
+const Dialogs = (props: any) => {
 
-    let newMessageText = React.createRef()
+    let newMessageText: any = React.createRef()
 
     let sendMessage = () => {
         props.sendMessage()
@@ -16,12 +16,12 @@ const Dialogs = (props) => {
         props.onNewMessageBodyChange(text)
     }
 
-    let contactsElements = props.contacts.map(el => <DialogItem id = {el.id}
+    let contactsElements = props.contacts.map((el: any) => <DialogItem id = {el.id}
                                                                 name={el.name}
                                                                 key = {el.id}
     />)
 
-    let messages = props.messages.map(m => <Message id = {m.id}
+    let messages = props.messages.map((m: any) => <Message id = {m.id}
                                                     text={m.text}
                                                     dateAndTime = {m.dateAndTime}
                                                     key = {m.id}

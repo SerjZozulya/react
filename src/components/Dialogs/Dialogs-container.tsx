@@ -2,7 +2,7 @@ import Dialogs from "./Dialogs";
 import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "../../redux/messages-reducer";
 import {connect} from "react-redux";
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: any) => {
     return {
         messages: state.messagesData.messages,
         contacts: state.messagesData.contacts,
@@ -10,9 +10,9 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
+let mapDispatchToProps = (dispatch: any) => {
     return {
-        onNewMessageBodyChange: (text) => {
+        onNewMessageBodyChange: (text: any) => {
             let action = updateNewMessageTextActionCreator(text)
             dispatch(action)
         },
