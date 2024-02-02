@@ -1,5 +1,9 @@
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
-const SEND_MESSAGE = 'SEND-MESSAGE'
+import { Action } from "./action-type"
+
+export enum actionTypes {
+    SEND_MESSAGE = "SEND_MESSAGE",
+    UPDATE_NEW_MESSAGE_BODY = "SEND_MESSAGE"
+}
 
 type DialogType = {
     id: number
@@ -37,11 +41,22 @@ let initialState = {
     newMessageText: ''
 }
 
-const messagesReducer = (state = initialState, action: any) => {
-    switch (action.type) {
-        case SEND_MESSAGE:
+export type SendMessageActionType = {
+    type: actionTypes.SEND_MESSAGE,
+}
 
-            if (state.newMessageText === '') {return state}
+export type UpdateNewMessageBodyActionType = {
+    type: actionTypes.UPDATE_NEW_MESSAGE_BODY,
+    newText: string
+}
+
+type ActionsType = SendMessageActionType | UpdateNewMessageBodyActionType;
+
+const messagesReducer = (state = initialState, action: Action) => {
+    switch (action.type) {
+        case actionTypes.SEND_MESSAGE:
+console.log('SEND MESSAGE')
+            if (state.newMessageText.trim() === '') {return {...state}} 
             else {
             let now = new Date()
             let newMessage = {
@@ -59,23 +74,23 @@ const messagesReducer = (state = initialState, action: any) => {
             }
         }
 
-        case UPDATE_NEW_MESSAGE_BODY:
-            return {...state, newMessageText: action.newText}
+        case actionTypes.UPDATE_NEW_MESSAGE_BODY:
+            return {...state, newMessageText: action.payload}
 
         default: return state
     }
 }
 
 type SendMessageActionCreatorType = {
-    type: typeof SEND_MESSAGE
+    type: actionTypes.SEND_MESSAGE
 }
 
 type UpdateNewMessageTextActionCreatorType = {
-    type: typeof UPDATE_NEW_MESSAGE_BODY
+    type: actionTypes.UPDATE_NEW_MESSAGE_BODY
     newText: string
 }
 
-export const sendMessageActionCreator = (): SendMessageActionCreatorType => ({type: SEND_MESSAGE})
-export const updateNewMessageTextActionCreator = (text: string): UpdateNewMessageTextActionCreatorType => ({type: UPDATE_NEW_MESSAGE_BODY, newText: text})
+export const sendMessageActionCreator = (): SendMessageActionCreatorType => ({type: actionTypes.SEND_MESSAGE})
+export const updateNewMessageTextActionCreator = (text: string): UpdateNewMessageTextActionCreatorType => ({type: actionTypes.UPDATE_NEW_MESSAGE_BODY, newText: text})
 
 export default messagesReducer

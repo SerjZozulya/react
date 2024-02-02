@@ -1,9 +1,11 @@
 import s from './Post.module.css'
 import avatar from '../../../../assets/img/avatar.jpg'
-import del from '../../../../assets/img/del.png'
-import edit from '../../../../assets/img/edit.jpg'
 
-const Post = (props) => {
+import { Button, Tooltip } from 'antd'
+import { DeleteOutlined, EditFilled } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
+
+const Post: React.FC = ({...props}:any) => {
     return <div className={s.postContainer}>
         <div className={s.post}>
             <div className={s.avatarAndDateBlock}>
@@ -12,19 +14,19 @@ const Post = (props) => {
                 <div>{props.time}</div>
             </div>
             <div className={s.text}>
-                <span className={
+                <Link to={`/project/${props.taskType+'-'+props.id}`} className={
                     props.taskType === 'TASK' ?
                     s.taskType : s.bugType
-                }>{props.taskType}</span>
+                }>{props.taskType} №{props.id}</Link>
                 <span>: {props.text}</span>
             </div>
             <div className={s.options}>
-                <img width={'15 px'} src={del} onClick={() => props.deleteTask(props.id)} alt={"del"}/>
-                <img width={'15 px'} src={edit} alt={"edit"}/>
+                <Tooltip title="delete"><Button onClick={e => {props.remove(props.id)}} shape='circle' icon={<DeleteOutlined/>}/></Tooltip>
+                <Tooltip title="edit"><Button shape='circle' icon={<EditFilled/>}/></Tooltip>   
             </div>
         </div>
         <div className={s.statusBar}>
-            <div>STATUS: {props.status}</div>
+            <div>STATUS: {props.completed ? "DONE" : "TODO"}</div>
         </div>
     </div>
 }

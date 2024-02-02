@@ -1,0 +1,13 @@
+.ta {
+    width: 600px;
+    height: 100px;
+    resize: none;
+    padding: 8px;
+}
+
+.settings {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 8px 0;
+}

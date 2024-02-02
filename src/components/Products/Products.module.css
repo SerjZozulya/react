@@ -1,0 +1,17 @@
+.news {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 16px;
+}
+
+.topLevelContainer {
+    display: grid;
+    grid-template-rows: 42px auto;
+    gap: 16px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}

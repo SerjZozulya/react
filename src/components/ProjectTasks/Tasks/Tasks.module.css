@@ -1,37 +1,23 @@
 .tasks {
     font-weight: bold;
-    margin-top: 2vh;
-}
-
-.projectsBlock {
-    display: flex;
+    margin-top: 8px;
 }
 
 .projectsBlock img {
     width: 15px;
-    margin: 3px 3px 3px 10px;
+    margin: 4px 4px 4px 8px;
 }
 
 .projectsBlock img:hover {
     cursor: pointer;
 }
 
-button {
-    margin: 2vh;
-    font-family: "Lucida Console";
+.headerButtons {
+    margin: 0;
 }
 
-.ta {
-    width: 600px;
-    height: 100px;
-    resize: none;
-    padding: 7px;
-}
-
-.settings {
-
-}
-
-select {
-    width: 120px;
+.myTasksHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
