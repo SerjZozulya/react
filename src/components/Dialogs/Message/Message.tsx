@@ -1,12 +1,13 @@
+import { FC } from "react";
 import s from "./Message.module.css";
 
 type PropsType = {
-    text: string
+    id: number,
+    text: string,
     dateAndTime: string
-    id: number
 }
 
-const Message = (props: PropsType) => {
+const Message: FC<PropsType> = (props) => {
     return <div className={s.message}>
         <div>{props.text}</div>
         <div className={s.sendTime}>{props.dateAndTime}</div>

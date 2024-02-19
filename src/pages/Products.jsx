@@ -3,12 +3,12 @@ import Meta from "antd/es/card/Meta";
 import s from "./Products.module.css";
 import { Pagination } from "antd";
 import { useState, useEffect } from "react";
-import { useFetching } from "../../hooks/useFetching";
-import PostService from "../../API/PostService";
+import { useFetching } from "../hooks/useFetching";
+import PostService from "../API/PostService";
 import { useDispatch, useSelector } from 'react-redux';
-import { setProductsActionCreator } from './../../redux/products-reducer';
+import { setProductsActionCreator } from '../redux/products-reducer';
 
-export const Products = (props) => {
+export const Products = () => {
   const dispatch = useDispatch()
   const [pages, setPage] = useState({ current: 1, total: 0 });
   const products = useSelector(state => state.products.products)

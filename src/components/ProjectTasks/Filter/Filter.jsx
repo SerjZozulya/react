@@ -10,7 +10,7 @@ export default function Filter({filter, setFilter}) {
         style={{ width: "80px" }}
         defaultValue={filter.sorting}
         options={[
-          { value: "completed", label: <span>Status</span> },
+          { value: "status", label: <span>Status</span> },
           { value: "id", label: <span>ID</span> },
         ]}
         onChange={e => setFilter({...filter, sorting: e})}

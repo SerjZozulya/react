@@ -1,5 +1,5 @@
 import s from "./Header.module.css";
-import i from "../../assets/img/header.jpg";
+import i from "../assets/img/header.jpg";
 import { NavLink } from "react-router-dom";
 import { Button } from "antd";
 
