@@ -1,16 +1,12 @@
-# RomanNetwork
-development control system / social network ROMAN. Made with React js + Redux
+Стек: React, Redux, Ant Design, axios, moment
 
-Structure:
-1. Components - react components for UI and containers.
-2. api - functions for interacting with the server (axios)
-3. Redux - store, reducers (file store.js is not using anymore, it was needed for educational purposes)
-4. Assets - images.
-
-To be continued...
-
-Use npm start to run application.
-For server part check https://github.com/SerjZozulya/RomanServer
-
-
-![GUI](https://raw.githubusercontent.com/SerjZozulya/RomanNetwork/master/screenshot.png "Screenshot")
+Задачи:
+1. Создание нового todo через модальное окно, как в Jira
+2. Удаление todo
+3. Сортировка по status и id, фильтрация todos
+4. Использовать ant design для ui элементов
+5. Редактирование имеющегося TODO через модальное окно (переиспользовать имеющееся)
+6. Подтверждение удаления через модальное окно (переиспользовать имеющееся)
+7. Нужно добавить пагинацию на страницу с задачами
+8. Вкладка "Продукты" нужна чисто чтобы поиграться с компонентом пагинации из Ant Design, там там идёт запрос на dummyjson через API
+9. Вкладка "Сообщения" пока не реализована
