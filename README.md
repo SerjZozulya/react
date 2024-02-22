@@ -1,4 +1,4 @@
-Стек: React, Redux, Ant Design, axios, moment
+Стек: React, Redux, Typescript, Ant Design, axios, moment
 
 Задачи:
 1. Создание нового todo через модальное окно, как в Jira
