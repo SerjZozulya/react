@@ -42,7 +42,11 @@
 }
 
 .options {
-
+    margin: 4px 8px;
+    gap: 0px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
 }
 
 .options img {

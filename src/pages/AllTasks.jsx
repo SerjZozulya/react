@@ -5,6 +5,7 @@ import s from "./AllTasks.module.css";
 import Filter from "../components/ProjectTasks/Filter/Filter";
 
 let AllTasks = ({tasks, remove, filter, setFilter}) => {
+
   let taskItems = tasks.map((p) => (
     <Task
       key={p.id}
@@ -14,7 +15,6 @@ let AllTasks = ({tasks, remove, filter, setFilter}) => {
       status={p.status}
       type={p.type}
       description={p.description}
-      remove={remove}
     />
   ));
 

@@ -8,10 +8,12 @@ const { TextArea } = Input;
 export default function CreateTask({ create }) {
 
   const [post, setPost] = useState({
-    todo: "",
-    completed: false,
+    summary: "",
+    status: "TODO",
     type: "TASK",
-    pubDate: moment().format("DD.MM.YYYY")
+    pubDate: moment().format("DD.MM.YYYY"),
+    description: "Hello world!",
+    reporterId: 1
   });
 
   const addNewPost = (e) => {
@@ -20,7 +22,7 @@ export default function CreateTask({ create }) {
       id: Date.now(),
     };
     create(newPost);
-    setPost({ ...post, todo: "" });
+    setPost({ ...post, summary: "" });
   };
 
   return (
@@ -39,8 +41,8 @@ export default function CreateTask({ create }) {
         rows={5}
         placeholder="Что нужно сделать?"
         className={s.ta}
-        onChange={(e) => setPost({ ...post, todo: e.target.value })}
-        value={post.todo}
+        onChange={(e) => setPost({ ...post, summary: e.target.value })}
+        value={post.summary}
       />
       <div className={s.settings}>
         Тип задачи:{" "}
@@ -54,18 +56,18 @@ export default function CreateTask({ create }) {
         />
         {` Статус:`}{" "}
         <Select
-          defaultValue={post.completed}
+          defaultValue={post.status}
           onChange={(e) => setPost({ ...post, completed: e })}
           style={{ width: 128 }}
           options={[
-            { value: true, label: <span>DONE</span> },
+            { value: "DONE", label: <span>DONE</span> },
             { value: "IN PROGRESS", label: <span>IN PROGRESS</span> },
-            { value: false, label: <span>TODO</span> },
+            { value: "TODO", label: <span>TODO</span> },
           ]}
         />
         <Button
           type="primary"
-          disabled={post.todo === ""}
+          disabled={post.summary === ""}
           onClick={addNewPost}
         >
           Create Task

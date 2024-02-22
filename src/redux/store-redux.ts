@@ -5,7 +5,7 @@ import authReducer from "./auth-reducer";
 import {productsReducer} from "./products-reducer";
 import thunk from "redux-thunk";
 
-let rootReducer = combineReducers({
+const rootReducer = combineReducers({
   tasks: tasksReducer,
   messagesData: messagesReducer,
   auth: authReducer,

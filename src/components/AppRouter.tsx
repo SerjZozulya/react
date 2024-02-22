@@ -3,22 +3,22 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import SingleTask from "../pages/SingleTask";
 import { Products } from "../pages/Products";
 import DialogsContainer from "../pages/Dialogs-container";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { usePosts } from "../hooks/usePosts";
-import { TasksContext } from "../context";
 import { useSelector } from "react-redux";
 
 const AppRouter = () => {
-
-  const tasks = useSelector(state => state.tasks)
-
-  const {  store, deleteTask } = useContext(TasksContext);
+  const tasks = useSelector((state: any) => state.tasks);
 
   const [filter, setFilter] = useState({ search: "", sorting: "id" });
-  const sortedAndSearchedPosts = usePosts(tasks.tasks, filter.sorting, filter.search);
+  const sortedAndSearchedPosts = usePosts(
+    tasks.tasks,
+    filter.sorting,
+    filter.search
+  );
 
-  let sortPosts = (sorting) => {
-    setFilter({ sorting: sorting });
+  let sortPosts = (sorting: string) => {
+    setFilter({ ...filter, sorting: sorting });
   };
 
   return (
@@ -28,7 +28,6 @@ const AppRouter = () => {
           <AllTasks
             filter={filter}
             sortPosts={sortPosts}
-            remove={deleteTask}
             tasks={sortedAndSearchedPosts}
             setFilter={setFilter}
           />
@@ -39,7 +38,7 @@ const AppRouter = () => {
         </Route>
 
         <Route path={"/dialogs"}>
-          <DialogsContainer store={store} />
+          <DialogsContainer />
         </Route>
 
         <Route path={"/products"}>
