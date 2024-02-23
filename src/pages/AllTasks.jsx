@@ -4,8 +4,7 @@ import Task from "../components/Task/Task";
 import s from "./AllTasks.module.css";
 import Filter from "../components/ProjectTasks/Filter/Filter";
 
-let AllTasks = ({tasks, remove, filter, setFilter}) => {
-
+let AllTasks = ({ tasks, remove, filter, setFilter }) => {
   let taskItems = tasks.map((p) => (
     <Task
       key={p.id}
@@ -25,7 +24,7 @@ let AllTasks = ({tasks, remove, filter, setFilter}) => {
       <div className="myTasksBlock">
         <div className={s.myTasksHeader}>
           <div>My Tasks </div>
-          <Filter filter = {filter} setFilter={setFilter}/>
+          <Filter filter={filter} setFilter={setFilter} />
         </div>
 
         <div>{taskItems}</div>

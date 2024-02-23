@@ -3,14 +3,14 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import SingleTask from "../pages/SingleTask";
 import { Products } from "../pages/Products";
 import DialogsContainer from "../pages/Dialogs-container";
-import { useState } from "react";
 import { usePosts } from "../hooks/usePosts";
 import { useSelector } from "react-redux";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const AppRouter = () => {
   const tasks = useSelector((state: any) => state.tasks);
+  const [filter, setFilter] = useLocalStorage("filter", { search: "", sorting: "id" });
 
-  const [filter, setFilter] = useState({ search: "", sorting: "id" });
   const sortedAndSearchedPosts = usePosts(
     tasks.tasks,
     filter.sorting,

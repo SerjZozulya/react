@@ -1,8 +1,9 @@
 import { Select } from "antd";
 import Search from "antd/es/input/Search";
 import s from "./Filter.module.css";
+import { useEffect } from "react";
 
-export default function Filter({filter, setFilter}) {
+export default function Filter({ filter, setFilter }) {
   return (
     <div className={s.sorting}>
       <span>Sort by:</span>
@@ -13,13 +14,15 @@ export default function Filter({filter, setFilter}) {
           { value: "status", label: <span>Status</span> },
           { value: "id", label: <span>ID</span> },
         ]}
-        onChange={e => setFilter({...filter, sorting: e})}
+        onChange={(e) => setFilter({ ...filter, sorting: e })}
       />
       <Search
         placeholder="search..."
         style={{ width: "auto" }}
         defaultValue={filter.search}
-        onChange={e => setFilter({...filter, search: e.target.value})}
+        onChange={(e) => {
+          setFilter({ ...filter, search: e.target.value });
+        }}
       />
     </div>
   );
