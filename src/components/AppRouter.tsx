@@ -6,6 +6,7 @@ import DialogsContainer from "../pages/Dialogs-container";
 import { usePosts } from "../hooks/usePosts";
 import { useSelector } from "react-redux";
 import useLocalStorage from "../hooks/useLocalStorage";
+import React from 'react';
 
 const AppRouter = () => {
   const tasks = useSelector((state: any) => state.tasks);

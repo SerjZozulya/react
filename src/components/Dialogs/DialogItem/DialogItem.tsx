@@ -1,6 +1,7 @@
 import { FC } from "react";
 import s from "./DialogItem.module.css";
 import {NavLink} from "react-router-dom";
+import React from 'react';
 
 type PropsType = {
     id: number

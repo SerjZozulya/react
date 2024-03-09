@@ -1,28 +1,28 @@
 {
-  "name": "my-app-1",
+  "name": "todolist",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://serjzozulya.github.io/RomanNetwork/",
+  "homepage": "https://serjzozulya.github.io/todolist/",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "@types/jest": "^29.5.3",
     "@types/node": "^20.4.9",
     "@types/react": "^18.2.19",
     "@types/react-dom": "^18.2.7",
-    "antd": "^5.13.2",
+    "antd": "^5.14.2",
     "axios": "^0.22.0",
     "cors": "^2.8.5",
     "gh-pages": "^3.2.3",
     "moment": "^2.30.1",
-    "react": "^17.0.2",
+    "react": "^16.9.0",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.5",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",
+    "redux-saga": "^1.3.0",
     "redux-thunk": "^2.4.0",
     "typescript": "^4.3.4",
     "web-vitals": "^1.1.2"
@@ -30,10 +30,11 @@
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts --openssl-legacy-provider build",
-    "test": "react-scripts test",
+    "test": "vitest",
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build",
-    "predeploy": "npm run build"
+    "predeploy": "npm run build",
+    "test:ui": "vitest --ui"
   },
   "eslintConfig": {
     "extends": [
@@ -54,6 +55,10 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.3.3"
+    "@testing-library/jest-dom": "^6.4.2",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitest/ui": "^1.3.1",
+    "jsdom": "^24.0.0",
+    "vitest": "^1.3.1"
   }
 }

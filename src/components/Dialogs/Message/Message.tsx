@@ -1,5 +1,6 @@
 import { FC } from "react";
 import s from "./Message.module.css";
+import React from 'react';
 
 type PropsType = {
     id: number,

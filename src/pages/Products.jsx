@@ -6,7 +6,8 @@ import { useState, useEffect } from "react";
 import { useFetching } from "../hooks/useFetching";
 import PostService from "../API/PostService";
 import { useDispatch, useSelector } from 'react-redux';
-import { setProductsActionCreator } from '../redux/products-reducer';
+import { setProductsActionCreator } from '../redux/reducers/products-reducer';
+import React from 'react';
 
 export const Products = () => {
   const dispatch = useDispatch()

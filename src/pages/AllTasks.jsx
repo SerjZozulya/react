@@ -3,6 +3,7 @@ import Toolbar from "../components/ProjectTasks/Toolbar/Toolbar";
 import Task from "../components/Task/Task";
 import s from "./AllTasks.module.css";
 import Filter from "../components/ProjectTasks/Filter/Filter";
+import React from "react";
 
 let AllTasks = ({ tasks, remove, filter, setFilter }) => {
   let taskItems = tasks.map((p) => (
@@ -21,13 +22,16 @@ let AllTasks = ({ tasks, remove, filter, setFilter }) => {
     <div className={s.tasks}>
       <Toolbar />
       <Divider />
-      <div className="myTasksBlock">
+      <div className={s.myTasksBlock}>
         <div className={s.myTasksHeader}>
           <div>My Tasks </div>
           <Filter filter={filter} setFilter={setFilter} />
         </div>
-
-        <div>{taskItems}</div>
+        {taskItems.length === 0 ? (
+          <div className={s.emptyArray}>No tasks here!</div>
+        ) : (
+          <div>{taskItems}</div>
+        )}
       </div>
     </div>
   );

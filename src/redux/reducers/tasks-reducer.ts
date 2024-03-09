@@ -1,5 +1,5 @@
-import { todos } from "../todos";
-import { Action } from "./action-type";
+import { todos } from "../../todos";
+import { Action } from "../action-type";
 
 export enum actionTypes {
     ADD_TASK = "ADD_TASK",
