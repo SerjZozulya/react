@@ -1,4 +1,5 @@
 import style from "./Modal.module.css";
+import React from 'react';
 
 export default function Modal({ children, visible, setVisible }) {
   const rootClasses = [style.modal];

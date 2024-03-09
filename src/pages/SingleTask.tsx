@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { ITask } from "../todos";
+import React from 'react';
 
 const SingleTask: FC = ({ posts }: any) => {
   const params: any = useParams();

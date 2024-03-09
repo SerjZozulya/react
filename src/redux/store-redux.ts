@@ -1,17 +1,21 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
-import {tasksReducer} from "./tasks-reducer";
-import messagesReducer from "./messages-reducer";
-import authReducer from "./auth-reducer";
-import {productsReducer} from "./products-reducer";
+import {tasksReducer} from "./reducers/tasks-reducer";
+import messagesReducer from "./reducers/messages-reducer";
+import {productsReducer} from "./reducers/products-reducer";
 import thunk from "redux-thunk";
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from "./saga";
+
+const sagaMiddleware = createSagaMiddleware()
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,
   messagesData: messagesReducer,
-  auth: authReducer,
   products: productsReducer
 });
 
-let store = createStore(rootReducer, applyMiddleware(thunk));
+let store = createStore(rootReducer, applyMiddleware(thunk, sagaMiddleware));
+
+sagaMiddleware.run(rootSaga)
 
 export default store;

@@ -1,7 +1,7 @@
 import { Select } from "antd";
 import Search from "antd/es/input/Search";
 import s from "./Filter.module.css";
-import { useEffect } from "react";
+import React from 'react';
 
 export default function Filter({ filter, setFilter }) {
   return (

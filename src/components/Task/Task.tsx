@@ -5,7 +5,8 @@ import { DeleteOutlined, EditFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { ITask } from "../../todos";
 import { useDispatch } from "react-redux";
-import { deleteTaskActionCreator } from "../../redux/tasks-reducer";
+import { deleteTaskActionCreator } from "../../redux/reducers/tasks-reducer";
+import React from "react";
 
 const Task = (task: ITask) => {
   const dispatch = useDispatch();

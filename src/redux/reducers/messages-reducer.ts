@@ -1,4 +1,4 @@
-import { Action } from "./action-type";
+import { Action } from "../action-type";
 
 export enum actionTypes {
   SEND_MESSAGE = "SEND_MESSAGE",
@@ -91,7 +91,6 @@ type ActionsType = SendMessageActionType | UpdateNewMessageBodyActionType;
 const messagesReducer = (state = initialState, action: ActionsType) => {
   switch (action.type) {
     case actionTypes.SEND_MESSAGE:
-      console.log("SEND MESSAGE");
       if (state.newMessageText.trim() === "") {
         return { ...state };
       } else {
@@ -115,7 +114,7 @@ const messagesReducer = (state = initialState, action: ActionsType) => {
       }
 
     case actionTypes.UPDATE_NEW_MESSAGE_BODY:
-        console.log(action.payload)
+      console.log(action.payload);
       return { ...state, newMessageText: action.payload };
 
     default:
