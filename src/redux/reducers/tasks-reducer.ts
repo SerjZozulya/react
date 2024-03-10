@@ -1,5 +1,5 @@
-import { todos } from "../../todos";
-import { Action } from "../action-type";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { ITask, todos } from "../../todos";
 
 export enum actionTypes {
     ADD_TASK = "ADD_TASK",
@@ -31,7 +31,7 @@ type InitStateType = {
   status: string;
 };
 
-let initState: InitStateType = {
+const initialState: InitStateType = {
   projects: [],
   selectedProject: { id: 1, name: "" },
   tasks: todos.todos,
@@ -40,24 +40,18 @@ let initState: InitStateType = {
   status: taskStatuses.TODO,
 };
 
-export const tasksReducer = (state = initState, action: Action) => {
-  switch (action.type) {
-    case actionTypes.ADD_TASK:
-      console.log('CREATE TASK')
-      return {
-        ...state,
-        tasks: [action.payload, ...state.tasks],
-        newTaskText: "",
-      };
+export const taskSlice = createSlice({
+  name: 'task',
+  initialState,
+  reducers: {
+    createTask(state, action:PayloadAction<ITask>) {
+      state.tasks.push(action.payload)
+    },
 
-    case actionTypes.DELETE_TASK:
-      console.log('DELETE TASK')
-      return { ...state, tasks: state.tasks.filter(task => task.id !== action.payload)};
-
-    default:
-      return state;
+    deleteTask(state, action:PayloadAction<ITask>) {
+      state.tasks = state.tasks.filter(task => task.id !== action.payload.id);
+    }
   }
-};
+})
 
-export const addTaskCreator = (payload: any) => ({type: actionTypes.ADD_TASK, payload: payload})
-export const deleteTaskActionCreator = (payload: any) => ({type: actionTypes.DELETE_TASK, payload: payload})
+export default taskSlice.reducer;

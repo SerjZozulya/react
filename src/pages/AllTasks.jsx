@@ -3,9 +3,8 @@ import Toolbar from "../components/ProjectTasks/Toolbar/Toolbar";
 import Task from "../components/Task/Task";
 import s from "./AllTasks.module.css";
 import Filter from "../components/ProjectTasks/Filter/Filter";
-import React from "react";
 
-let AllTasks = ({ tasks, remove, filter, setFilter }) => {
+let AllTasks = ({ tasks, filter, setFilter }) => {
   let taskItems = tasks.map((p) => (
     <Task
       key={p.id}
