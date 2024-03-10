@@ -1,10 +1,10 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
-import {tasksReducer} from "./reducers/tasks-reducer";
+import tasksReducer from "./reducers/tasks-reducer";
 import messagesReducer from "./reducers/messages-reducer";
 import {productsReducer} from "./reducers/products-reducer";
-import thunk from "redux-thunk";
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from "./saga";
+import { configureStore } from '@reduxjs/toolkit';
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -14,8 +14,9 @@ const rootReducer = combineReducers({
   products: productsReducer
 });
 
-let store = createStore(rootReducer, applyMiddleware(thunk, sagaMiddleware));
+export const setupStore = () => configureStore({reducer:rootReducer});
 
-sagaMiddleware.run(rootSaga)
-
-export default store;
+//sagaMiddleware.run(rootSaga)
+export type RootState = ReturnType<typeof rootReducer>
+export type AppStore = ReturnType<typeof setupStore>
+export type AppDispatch = AppStore['dispatch']

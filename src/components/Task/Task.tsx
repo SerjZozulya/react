@@ -4,16 +4,12 @@ import { Button, Tooltip } from "antd";
 import { DeleteOutlined, EditFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { ITask } from "../../todos";
-import { useDispatch } from "react-redux";
-import { deleteTaskActionCreator } from "../../redux/reducers/tasks-reducer";
-import React from "react";
+import { deleteTaskActionCreator, taskSlice } from "../../redux/reducers/tasks-reducer";
+import { useAppDispatch } from "../../hooks/redux";
 
 const Task = (task: ITask) => {
-  const dispatch = useDispatch();
-
-  const deleteTask = (taskId: number) => {
-    dispatch(deleteTaskActionCreator(taskId));
-  };
+  const dispatch = useAppDispatch();
+  const {deleteTask} = taskSlice.actions;
 
   return (
     <div className={s.postContainer}>
@@ -36,7 +32,7 @@ const Task = (task: ITask) => {
           <Tooltip title="delete">
             <Button
               onClick={(e) => {
-                deleteTask(task.id);
+                dispatch(deleteTask(task));
               }}
               shape="circle"
               icon={<DeleteOutlined />}

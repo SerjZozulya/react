@@ -4,21 +4,17 @@ import Modal from "./Modal";
 import CreateTask from "../components/ProjectTasks/Form/CreateTask";
 import AppRouter from "../components/AppRouter";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addTaskCreator } from "../redux/reducers/tasks-reducer";
-import React from 'react';
+import { addTaskCreator, taskSlice } from "../redux/reducers/tasks-reducer";
+import { useAppDispatch } from "../hooks/redux";
 
 const Layout = () => {
-  const dispatch = useDispatch();
-
-  const addTask = (task) => {
-    dispatch(addTaskCreator(task));
-  };
+  const dispatch = useAppDispatch();
+  const {createTask} = taskSlice.actions
 
   const [isModalVisible, setModal] = useState(false);
 
   const createPost = (newPost) => {
-    addTask(newPost);
+    dispatch(createTask(newPost));
     setModal(false);
   };
 
