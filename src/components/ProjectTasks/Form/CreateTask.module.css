@@ -1,13 +1,26 @@
 .ta {
-    width: 600px;
-    height: 100px;
-    resize: none;
-    padding: 8px;
+  width: 600px;
+  height: 100px;
+  resize: none;
+  padding: 8px;
 }
 
 .settings {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 8px 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form > div {
+  font-weight: 1000;
+  font-family: "Lucida Console";
+  margin-top: 30 + "px";
+  margin-bottom: 5 + "px";
 }

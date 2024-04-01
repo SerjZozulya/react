@@ -4,26 +4,19 @@ import Modal from "./Modal";
 import CreateTask from "../components/ProjectTasks/Form/CreateTask";
 import AppRouter from "../components/AppRouter";
 import { useState } from "react";
-import { addTaskCreator, taskSlice } from "../redux/reducers/tasks-reducer";
-import { useAppDispatch } from "../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { modalSlice } from "../redux/reducers/modal-reducer";
 
 const Layout = () => {
-  const dispatch = useAppDispatch();
-  const {createTask} = taskSlice.actions
-
-  const [isModalVisible, setModal] = useState(false);
-
-  const createPost = (newPost) => {
-    dispatch(createTask(newPost));
-    setModal(false);
-  };
-
+  const dispatch = useAppDispatch()
+  const isModalVisible = useAppSelector(state => state.modal)
+  const {setVisible} = modalSlice.actions
   return (
     <div className={"GridBlock"}>
-      <Modal visible={isModalVisible} setVisible={setModal}>
-        <CreateTask create={createPost} />
+      <Modal visible={isModalVisible} setVisible={setVisible}>
+        <CreateTask/>
       </Modal>
-      <Header openModal={() => setModal(true)} />
+      <Header openModal={() => dispatch(setVisible(true))} />
       <Navbar />
       <AppRouter />
     </div>

@@ -3,13 +3,15 @@ import avatar from "../../assets/img/avatar.jpg";
 import { Button, Tooltip } from "antd";
 import { DeleteOutlined, EditFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { ITask } from "../../todos";
-import { deleteTaskActionCreator, taskSlice } from "../../redux/reducers/tasks-reducer";
+import { ITask } from "../../models/ITask";
+import { taskSlice } from "../../redux/reducers/tasks-reducer";
 import { useAppDispatch } from "../../hooks/redux";
+import { modalSlice } from "../../redux/reducers/modal-reducer";
 
 const Task = (task: ITask) => {
   const dispatch = useAppDispatch();
-  const {deleteTask} = taskSlice.actions;
+  const { deleteTask } = taskSlice.actions;
+  const { setVisible } = modalSlice.actions;
 
   return (
     <div className={s.postContainer}>
@@ -39,7 +41,7 @@ const Task = (task: ITask) => {
             />
           </Tooltip>
           <Tooltip title="edit">
-            <Button shape="circle" icon={<EditFilled />} />
+            <Button onClick={() => dispatch(setVisible(true))} shape="circle" icon={<EditFilled />} />
           </Tooltip>
         </div>
       </div>

@@ -2,48 +2,56 @@ import { Input, Select, Button } from "antd";
 import { useState } from "react";
 import s from "./CreateTask.module.css";
 import moment from "moment";
-import React from 'react';
+import { ITask } from "../../../models/ITask";
+import { useAppDispatch } from "../../../hooks/redux";
+import { taskSlice } from "../../../redux/reducers/tasks-reducer";
+import { modalSlice } from "../../../redux/reducers/modal-reducer";
 
 const { TextArea } = Input;
 
-export default function CreateTask({ create }) {
+export default function CreateTask() {
 
-  const [post, setPost] = useState({
+  const dispatch = useAppDispatch();
+  const { createTask } = taskSlice.actions;
+  const { setVisible } = modalSlice.actions;
+
+  const emptyTask: ITask = {
+    id: 0,
     summary: "",
     status: "TODO",
     type: "TASK",
     pubDate: moment().format("DD.MM.YYYY"),
-    description: "Hello world!",
-    reporterId: 1
-  });
+    description: "",
+    reporterId: 0,
+    assigneeId: 0,
+  };
 
-  const addNewPost = (e) => {
+  const [post, setPost] = useState(emptyTask);
+
+  const addNewPost = (e: any) => {
     const newPost = {
       ...post,
       id: Date.now(),
     };
-    create(newPost);
+    dispatch(createTask(newPost));
+    dispatch(setVisible(false))
     setPost({ ...post, summary: "" });
   };
 
   return (
-    <form>
-      <div
-        style={{
-          fontWeight: 1000,
-          fontFamily: "Lucida Console",
-          marginTop: 30 + "px",
-          marginBottom: 5 + "px",
-        }}
-      >
-        Создать задачу
-      </div>
+    <form className={s.form}>
+      <div>Создать задачу</div>
+      <Input
+        placeholder="Summary"
+        value={post.summary}
+        onChange={(e) => setPost({ ...post, summary: e.target.value })}
+      />
       <TextArea
         rows={5}
         placeholder="Что нужно сделать?"
         className={s.ta}
-        onChange={(e) => setPost({ ...post, summary: e.target.value })}
-        value={post.summary}
+        onChange={(e) => setPost({ ...post, description: e.target.value })}
+        value={post.description}
       />
       <div className={s.settings}>
         Тип задачи:{" "}
@@ -58,7 +66,7 @@ export default function CreateTask({ create }) {
         {` Статус:`}{" "}
         <Select
           defaultValue={post.status}
-          onChange={(e) => setPost({ ...post, completed: e })}
+          onChange={(e) => setPost({ ...post, status: e })}
           style={{ width: 128 }}
           options={[
             { value: "DONE", label: <span>DONE</span> },
