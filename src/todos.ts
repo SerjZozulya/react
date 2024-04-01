@@ -9,17 +9,6 @@ interface Iuser {
   position: string
 }
 
-export interface ITask {
-  id: number;
-  summary: string;
-  description: string;
-  type: string;
-  status: string;
-  pubDate: string;
-  reporterId: number;
-  assigneeId: number;
-}
-
 export const todos = {
   todos: [
     {
@@ -314,7 +303,7 @@ export const todos = {
     },
     {
       id: 30,
-      summary: "Take cat on a walk",
+      summary: "Изучить реакт",
       status: "TODO",
       pubDate: "21.01.2024",
       description: "TEST",

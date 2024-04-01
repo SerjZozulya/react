@@ -1,10 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ITask, todos } from "../../todos";
-
-export enum actionTypes {
-    ADD_TASK = "ADD_TASK",
-    DELETE_TASK = "DELETE_TASK"
-}
+import { todos } from "../../todos";
+import { ITask } from "../../models/ITask";
 
 enum taskStatuses {
   DONE = "DONE",
@@ -20,6 +16,7 @@ enum taskTypes {
 type SelectedProjectType = {
   id: number;
   name: string;
+  totalTasks: number;
 };
 
 type InitStateType = {
@@ -33,7 +30,7 @@ type InitStateType = {
 
 const initialState: InitStateType = {
   projects: [],
-  selectedProject: { id: 1, name: "" },
+  selectedProject: { id: 1, name: "", totalTasks: todos.total },
   tasks: todos.todos,
   newTaskText: "",
   taskType: taskTypes.TASK,

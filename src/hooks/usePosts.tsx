@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { ITask } from "../todos";
+import { ITask } from "../models/ITask";
 
 export const useSortedPosts = (posts: [ITask], sorting: string) => {
     function getSortedPosts() {
