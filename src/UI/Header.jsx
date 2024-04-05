@@ -10,6 +10,7 @@ const Header = (props) => {
       <Button onClick={(e) => props.openModal()} type="primary">
         Create Task
       </Button>
+      <div className={s.loginBlock}><a href="/login">Login</a></div>
     </header>
   );
 };

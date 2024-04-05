@@ -4,36 +4,19 @@ import SingleTask from "../pages/SingleTask";
 import { usePosts } from "../hooks/usePosts";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useAppSelector } from "../hooks/redux";
+import Login from "../pages/Login";
+import { authRoutes, publicRoutes } from "../router";
 
 const AppRouter = () => {
-  const tasks = useAppSelector((state: any) => state.tasks);
-  const [filter, setFilter] = useLocalStorage("filter", { search: "", sorting: "id" });
 
-  const sortedAndSearchedPosts = usePosts(
-    tasks.tasks,
-    filter.sorting,
-    filter.search
-  );
-
-  let sortPosts = (sorting: string) => {
-    setFilter({ ...filter, sorting: sorting });
-  };
+  const user = useAppSelector((state:any) => state.user);
 
   return (
     <div className={"Content-Wrapper"}>
       <Switch>
-        <Route exact path={"/project"}>
-          <AllTasks
-            filter={filter}
-            sortPosts={sortPosts}
-            tasks={sortedAndSearchedPosts}
-            setFilter={setFilter}
-          />
-        </Route>
-        <Route exact path={"/project/:id"}>
-          <SingleTask posts={tasks} />
-        </Route>
-        <Redirect to="/project" />
+        {user.isAuth && authRoutes.map(({path, component}) => <Route path={path} component={component}></Route>)}
+        {!user.isAuth && publicRoutes.map(({path, component}) => <Route path={path} component={component}></Route>)}
+        <Redirect to={user.isAuth ? "/project" : "/login"}/>
       </Switch>
     </div>
   );

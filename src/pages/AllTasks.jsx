@@ -3,9 +3,23 @@ import Toolbar from "../components/ProjectTasks/Toolbar/Toolbar";
 import Task from "../components/Task/Task";
 import s from "./AllTasks.module.css";
 import Filter from "../components/ProjectTasks/Filter/Filter";
+import { useAppSelector } from "../hooks/redux";
+import useLocalStorage from "../hooks/useLocalStorage";
+import { usePosts } from "../hooks/usePosts";
 
-let AllTasks = ({ tasks, filter, setFilter }) => {
-  let taskItems = tasks.map((p) => (
+let AllTasks = () => {
+
+  const tasks = useAppSelector((state) => state.tasks);
+
+  const [filter, setFilter] = useLocalStorage("filter", { search: "", sorting: "id" });
+
+  const sortedAndSearchedPosts = usePosts(
+    tasks.tasks,
+    filter.sorting,
+    filter.search
+  );
+
+  let taskItems = sortedAndSearchedPosts.map((p) => (
     <Task
       key={p.id}
       id={p.id}
