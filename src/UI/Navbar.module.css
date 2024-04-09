@@ -24,7 +24,7 @@
 }
 
 
-.item a.active {
+ a.active {
     background-color: lightslategray;
     font-weight: 600;
 }

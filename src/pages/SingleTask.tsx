@@ -1,8 +1,10 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { ITask } from "../models/ITask";
+import { useAppSelector } from "../hooks/redux";
 
-const SingleTask: FC = ({ posts }: any) => {
+const SingleTask: FC = () => {
+  const posts = useAppSelector(state => state.tasks)
   const params: any = useParams();
   const task: ITask = posts.tasks.find(
     (element: ITask) => element.type + "-" + element.id === params.id

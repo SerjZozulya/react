@@ -1,12 +1,11 @@
 import "./App.css";
 import { FC, useEffect, useState } from "react";
-import { BrowserRouter } from "react-router-dom";
-import Layout from "./UI/Layout";
 import { useAppDispatch, useAppSelector } from "./hooks/redux";
 import { check } from "./API/userAPI";
 import { userSlice } from "./redux/reducers/user-reducer";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import AppRouter from "./components/AppRouter";
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
@@ -16,10 +15,15 @@ const App: FC = () => {
 
   useEffect(() => {
     check()
-      .then((data) => {
-        dispatch(setUser(user));
-        dispatch(setIsAuth(true));
-      })
+      .then(
+        (data) => {
+          dispatch(setUser(user));
+          dispatch(setIsAuth(true));
+        },
+        (error) => {
+          dispatch(setIsAuth(false));
+        }
+      )
       .finally(() => setLoading(false));
   }, []);
 
@@ -32,11 +36,9 @@ const App: FC = () => {
     );
   } else {
     return (
-      <BrowserRouter>
         <div className="App">
-          <Layout />
+          <AppRouter></AppRouter>
         </div>
-      </BrowserRouter>
     );
   }
 };

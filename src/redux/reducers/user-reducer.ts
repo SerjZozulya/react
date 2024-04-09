@@ -2,7 +2,10 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isAuth: false,
-  user: {},
+  user: {
+    name: "",
+    lastName: ""
+  },
 };
 
 export const userSlice = createSlice({

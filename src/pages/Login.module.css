@@ -1,0 +1,14 @@
+.login_form {
+  margin: auto;
+  width: 400px;
+}
+
+.login_form input {
+  margin: 8px 0;
+}
+
+.login_form span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

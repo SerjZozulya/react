@@ -1,20 +1,40 @@
-import { Route, Switch, Redirect } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../hooks/redux";
 import { authRoutes, publicRoutes } from "../router";
+import Layout from "../UI/Layout";
+import ErrorPage from "../pages/error-page";
+import Login from "../pages/Login";
 
 const AppRouter = () => {
+  const user = useAppSelector((state: any) => state.user);
+  const element = user.isAuth ? <Layout /> : <Login />;
 
-  const user = useAppSelector((state:any) => state.user);
+  const children: any = user.isAuth
+    ? authRoutes.map(({ path, component }) => {
+        let child = {
+          path: path,
+          element: component,
+        };
+        return child;
+      })
+    : publicRoutes.map(({ path, component }) => {
+        let child = {
+          path: path,
+          element: component,
+        };
+        return child;
+      });
 
-  return (
-    <div className={"Content-Wrapper"}>
-      <Switch>
-        {user.isAuth && authRoutes.map(({path, component}) => <Route key={path} path={path} component={component}></Route>)}
-        {!user.isAuth && publicRoutes.map(({path, component}) => <Route key={path} path={path} component={component}></Route>)}
-        <Redirect to={user.isAuth ? "/project" : "/login"}/>
-      </Switch>
-    </div>
-  );
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: element,
+      errorElement: <ErrorPage />,
+      children: children,
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 };
 
 export default AppRouter;
