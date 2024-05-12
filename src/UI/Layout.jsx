@@ -1,21 +1,23 @@
 import Navbar from "./Navbar";
 import Header from "./Header";
 import Modal from "./Modal";
-import CreateTask from "../components/ProjectTasks/Form/CreateTask";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { modalSlice } from "../redux/reducers/modal-reducer";
 import { Outlet } from "react-router-dom";
+import { MODAL_TYPES } from "../utils/consts";
 
 const Layout = () => {
   const dispatch = useAppDispatch();
-  const isModalVisible = useAppSelector((state) => state.modal);
-  const { setVisible } = modalSlice.actions;
+  const { isVisible, form } = useAppSelector((state) => state.modal);
+  const { setVisible, setForm } = modalSlice.actions;
   return (
     <div className={"GridBlock"}>
-      <Modal visible={isModalVisible} setVisible={setVisible}>
-        <CreateTask />
-      </Modal>
-      <Header openModal={() => dispatch(setVisible(true))} />
+      <Modal visible={isVisible} setVisible={setVisible} form={form}/>
+      <Header openModal={() => {
+        dispatch(setVisible(true))
+        dispatch(setForm(MODAL_TYPES.CREATE_TASK_FORM))
+      }
+        } />
       <Navbar />
       <div className={"Content-Wrapper"}>
         <Outlet />

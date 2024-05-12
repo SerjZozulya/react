@@ -1,41 +1,46 @@
 import { Input, Select, Button } from "antd";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import s from "./CreateTask.module.css";
-import moment from "moment";
+import dayjs from "dayjs";
 import { ITask } from "../../../models/ITask";
-import { useAppDispatch } from "../../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { taskSlice } from "../../../redux/reducers/tasks-reducer";
 import { modalSlice } from "../../../redux/reducers/modal-reducer";
+import { createTask as createTaskOnServer } from "../../../http/tasksAPI";
 
 const { TextArea } = Input;
 
 export default function CreateTask() {
-
   const dispatch = useAppDispatch();
+  const tasks = useAppSelector((state) => state.tasks);
+  const user = useAppSelector((state) => state.user);
   const { createTask } = taskSlice.actions;
   const { setVisible } = modalSlice.actions;
 
-  const emptyTask: ITask = {
+  let emptyTask: ITask = {
     id: 0,
     summary: "",
     status: "TODO",
     type: "TASK",
-    pubDate: moment().format("DD.MM.YYYY"),
+    pubDate: dayjs(),
     description: "",
-    reporterId: 0,
-    assigneeId: 0,
+    reporterId: user.user.id,
+    assigneeId: user.user.id,
+    projectId: tasks.selectedProject,
   };
 
-  const [post, setPost] = useState(emptyTask);
+  const [task, setTask] = useState(emptyTask);
 
-  const addNewPost = (e: any) => {
-    const newPost = {
-      ...post,
-      id: Date.now(),
-    };
-    dispatch(createTask(newPost));
-    dispatch(setVisible(false))
-    setPost({ ...post, summary: "" });
+  useEffect(() => {
+    setTask(emptyTask);
+  }, [tasks]);
+
+  const addNewPost = () => {
+    createTaskOnServer(task).then((data) => {
+      dispatch(createTask(data));
+      dispatch(setVisible(false));
+      setTask(emptyTask);
+    });
   };
 
   return (
@@ -43,30 +48,30 @@ export default function CreateTask() {
       <div>Создать задачу</div>
       <Input
         placeholder="Summary"
-        value={post.summary}
-        onChange={(e) => setPost({ ...post, summary: e.target.value })}
+        value={task.summary}
+        onChange={(e) => setTask({ ...task, summary: e.target.value })}
       />
       <TextArea
         rows={5}
         placeholder="Что нужно сделать?"
         className={s.ta}
-        onChange={(e) => setPost({ ...post, description: e.target.value })}
-        value={post.description}
+        onChange={(e) => setTask({ ...task, description: e.target.value })}
+        value={task.description}
       />
       <div className={s.settings}>
         Тип задачи:{" "}
         <Select
-          defaultValue={post.type}
+          defaultValue={task.type}
           options={[
             { value: "TASK", label: <span>TASK</span> },
             { value: "BUG", label: <span>BUG</span> },
           ]}
-          onChange={(e) => setPost({ ...post, type: e })}
+          onChange={(e) => setTask({ ...task, type: e })}
         />
         {` Статус:`}{" "}
         <Select
-          defaultValue={post.status}
-          onChange={(e) => setPost({ ...post, status: e })}
+          defaultValue={task.status}
+          onChange={(e) => setTask({ ...task, status: e })}
           style={{ width: 128 }}
           options={[
             { value: "DONE", label: <span>DONE</span> },
@@ -76,7 +81,7 @@ export default function CreateTask() {
         />
         <Button
           type="primary"
-          disabled={post.summary === ""}
+          disabled={task.summary === ""}
           onClick={addNewPost}
         >
           Create Task

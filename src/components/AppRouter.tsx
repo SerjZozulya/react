@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useAppSelector } from "../hooks/redux";
 import { authRoutes, publicRoutes } from "../router";
 import Layout from "../UI/Layout";

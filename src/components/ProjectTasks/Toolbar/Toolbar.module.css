@@ -3,3 +3,7 @@
     align-items: center;
     gap: 4px;
 }
+
+.select {
+    width: 200px;
+}
