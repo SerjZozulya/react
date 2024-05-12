@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { ITask } from "../models/ITask";
 import { useAppSelector } from "../hooks/redux";
+import dayjs from "dayjs";
 
 const SingleTask: FC = () => {
   const posts = useAppSelector(state => state.tasks)
@@ -14,7 +15,7 @@ const SingleTask: FC = () => {
     <div>
       <h1>{params.id}</h1>
       <h2>{task.summary}</h2>
-      <h3>Создан: {task.pubDate}</h3>
+      <h3>Создан: {dayjs().format("DD.MM.YYYY")}</h3>
       <span>
         <div>Description:</div>
         <div>{task.description}</div>

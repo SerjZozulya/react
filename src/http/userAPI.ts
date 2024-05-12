@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import { $authHost, $host } from "./PostService";
+import { $authHost, $host } from "./index";
 
 export const registration = async (
   name: string,

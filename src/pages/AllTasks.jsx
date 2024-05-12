@@ -3,15 +3,31 @@ import Toolbar from "../components/ProjectTasks/Toolbar/Toolbar";
 import Task from "../components/Task/Task";
 import s from "./AllTasks.module.css";
 import Filter from "../components/ProjectTasks/Filter/Filter";
-import { useAppSelector } from "../hooks/redux";
+import { useAppSelector, useAppDispatch } from "../hooks/redux";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { usePosts } from "../hooks/usePosts";
+import { useEffect } from "react";
+import { fetchProjects, fetchTasks } from "../http/tasksAPI";
+import { taskSlice } from "../redux/reducers/tasks-reducer";
 
 let AllTasks = () => {
-
   const tasks = useAppSelector((state) => state.tasks);
+  const dispatch = useAppDispatch();
 
-  const [filter, setFilter] = useLocalStorage("filter", { search: "", sorting: "id" });
+  useEffect(() => {
+    fetchProjects().then((data) => dispatch(taskSlice.actions.setProjects(data)));
+    fetchTasks(tasks.selectedProject).then((data) => dispatch(taskSlice.actions.setTasks(data)));
+  }, []);
+
+  const setActiveProject = (id) => {
+    dispatch(taskSlice.actions.setActiveProject(id))
+    fetchTasks(id).then((data) => dispatch(taskSlice.actions.setTasks(data)));
+  }
+
+  const [filter, setFilter] = useLocalStorage("filter", {
+    search: "",
+    sorting: "id",
+  });
 
   const sortedAndSearchedPosts = usePosts(
     tasks.tasks,
@@ -33,7 +49,10 @@ let AllTasks = () => {
 
   return (
     <div className={s.tasks}>
-      <Toolbar />
+      <Toolbar 
+        projects={tasks.projects}
+        setActiveProject={setActiveProject}
+      />
       <Divider />
       <div className={s.myTasksBlock}>
         <div className={s.myTasksHeader}>

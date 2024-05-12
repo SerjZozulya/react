@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { todos } from "../../todos";
 import { ITask } from "../../models/ITask";
 
 enum taskStatuses {
@@ -13,15 +12,9 @@ enum taskTypes {
   TASK = "TASK",
 }
 
-type SelectedProjectType = {
-  id: number;
-  name: string;
-  totalTasks: number;
-};
-
 type InitStateType = {
   projects: Array<any>;
-  selectedProject: SelectedProjectType;
+  selectedProject: number;
   tasks: Array<any>;
   newTaskText: string;
   taskType: string;
@@ -30,8 +23,8 @@ type InitStateType = {
 
 const initialState: InitStateType = {
   projects: [],
-  selectedProject: { id: 1, name: "", totalTasks: todos.total },
-  tasks: todos.todos,
+  selectedProject: 0,
+  tasks: [],
   newTaskText: "",
   taskType: taskTypes.TASK,
   status: taskStatuses.TODO,
@@ -45,8 +38,25 @@ export const taskSlice = createSlice({
       state.tasks.push(action.payload)
     },
 
+    editTask(state, action:PayloadAction<ITask>) {
+      const index = state.tasks.findIndex(obj => {return obj.id === action.payload.id})
+      state.tasks[index] = action.payload
+    },
+
     deleteTask(state, action:PayloadAction<ITask>) {
       state.tasks = state.tasks.filter(task => task.id !== action.payload.id);
+    },
+
+    setProjects(state, action) {
+      state.projects = action.payload
+    },
+
+    setTasks(state, action) {
+      state.tasks = action.payload
+    },
+
+    setActiveProject(state, action) {
+      state.selectedProject = action.payload
     }
   }
 })

@@ -2,7 +2,7 @@ import { Input, Button, Form } from "antd";
 import { Link, Navigate, redirect, useLocation, useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "../utils/consts";
 import { useState } from "react";
-import { login, registration } from "../API/userAPI";
+import { login, registration } from "../http/userAPI";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { userSlice } from "../redux/reducers/user-reducer";
 import s from "./Login.module.css";
@@ -29,7 +29,7 @@ const Login = () => {
 
       }
 
-      dispatch(setUser(user));
+      dispatch(setUser(data));
       dispatch(setIsAuth(true));
 
     } catch (error: any) {

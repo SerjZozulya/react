@@ -1,5 +1,5 @@
 import s from "./Header.module.css";
-import i from "../assets/img/header.jpg";
+import i from "../static/img/header.jpg";
 import { Button } from "antd";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { userSlice } from "../redux/reducers/user-reducer";

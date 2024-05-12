@@ -1,7 +1,6 @@
 import { Select } from "antd";
 import Search from "antd/es/input/Search";
 import s from "./Filter.module.css";
-import React from 'react';
 
 export default function Filter({ filter, setFilter }) {
   return (

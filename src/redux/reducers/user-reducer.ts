@@ -3,8 +3,11 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isAuth: false,
   user: {
-    name: "",
-    lastName: ""
+    id: 0,
+    email: "",
+    firstName: "",
+    lastName: "",
+    role: ""
   },
 };
 
