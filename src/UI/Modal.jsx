@@ -1,6 +1,6 @@
 import { useAppDispatch } from "../hooks/redux";
 import style from "./Modal.module.css";
-import Form from './../components/ProjectTasks/Form/Form';
+import Form from '../components/ProjectTasks/Forms/Form';
 
 export default function Modal({ visible, setVisible, form }) {
   const dispatch = useAppDispatch()

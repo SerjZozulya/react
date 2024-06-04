@@ -7,8 +7,9 @@ import { useAppSelector, useAppDispatch } from "../hooks/redux";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { usePosts } from "../hooks/usePosts";
 import { useEffect } from "react";
-import { fetchProjects, fetchTasks } from "../http/tasksAPI";
-import { taskSlice } from "../redux/reducers/tasks-reducer";
+import { fetchTasks } from "../http/tasksAPI";
+import { fetchProjects } from "../http/projectsAPI";
+import { taskSlice } from "../redux/slices/tasks-slice";
 
 let AllTasks = () => {
   const tasks = useAppSelector((state) => state.tasks);

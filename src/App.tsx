@@ -2,7 +2,7 @@ import "./App.css";
 import { FC, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "./hooks/redux";
 import { check } from "./http/userAPI";
-import { userSlice } from "./redux/reducers/user-reducer";
+import { userSlice } from "./redux/slices/user-reducer";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import AppRouter from "./components/AppRouter";

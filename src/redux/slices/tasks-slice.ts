@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ITask } from "../../models/ITask";
+import { IProject } from "../../models/IProject";
 
 enum taskStatuses {
   DONE = "DONE",
@@ -13,7 +14,7 @@ enum taskTypes {
 }
 
 type InitStateType = {
-  projects: Array<any>;
+  projects: Array<IProject>;
   selectedProject: number;
   tasks: Array<any>;
   newTaskText: string;
@@ -49,6 +50,10 @@ export const taskSlice = createSlice({
 
     setProjects(state, action) {
       state.projects = action.payload
+    },
+
+    createProject(state, action:PayloadAction<IProject>) {
+      state.projects.push(action.payload)
     },
 
     setTasks(state, action) {

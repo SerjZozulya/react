@@ -4,8 +4,8 @@ import s from "./CreateTask.module.css";
 import dayjs from "dayjs";
 import { ITask } from "../../../models/ITask";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { taskSlice } from "../../../redux/reducers/tasks-reducer";
-import { modalSlice } from "../../../redux/reducers/modal-reducer";
+import { taskSlice } from "../../../redux/slices/tasks-slice";
+import { modalSlice } from "../../../redux/slices/modal-reducer";
 import { createTask as createTaskOnServer } from "../../../http/tasksAPI";
 
 const { TextArea } = Input;
