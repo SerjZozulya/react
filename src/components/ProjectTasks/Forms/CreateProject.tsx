@@ -1,40 +1,34 @@
-import { Input, Select, Button } from "antd";
-import { useEffect, useMemo, useState } from "react";
+import { Input, Button } from "antd";
+import { useEffect, useState } from "react";
 import s from "./CreateTask.module.css";
-import dayjs from "dayjs";
-import { ITask } from "../../../models/ITask";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { taskSlice } from "../../../redux/slices/tasks-slice";
-import { modalSlice } from "../../../redux/slices/modal-reducer";
-import { createProject as createProjectOnServer } from "../../../http/projectsAPI";
+import { modalSlice } from "../../../redux/slices/modal-slice";
 import { IProject } from "../../../models/IProject";
+import { projectsAPI } from "../../../redux/services/ProjectService";
+import { userSlice } from "../../../redux/slices/user-slice";
 
 const { TextArea } = Input;
 
 export default function CreateProject() {
   const dispatch = useAppDispatch();
-  const projects = useAppSelector((state) => state.tasks.projects);
   const user = useAppSelector((state) => state.user);
-  const { createProject } = taskSlice.actions;
   const { setVisible } = modalSlice.actions;
+  const [createProject, {}] = projectsAPI.useCreateProjectMutation()
+  const [editProject, {}] = projectsAPI.useEditProjectMutation()
 
   let emptyProject: IProject = {
     id: 0,
     title: "",
     description: "",
+    userId: user.user.id
   };
 
   const [project, setProject] = useState(emptyProject);
 
-  useEffect(() => {
-    setProject(emptyProject);
-  }, [projects]);
-
   const createNewProject = () => {
-    createProjectOnServer(project).then((data) => {
-      dispatch(createProject(data));
+    createProject(project).then((response:any) => {
       dispatch(setVisible(false));
-      setProject(emptyProject);
+      dispatch(userSlice.actions.setActiveProject(response.data.id));
     });
   };
 

@@ -2,7 +2,7 @@ import { Input, Select, Button } from "antd";
 import s from "./CreateTask.module.css";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { taskSlice } from "../../../redux/slices/tasks-slice";
-import { modalSlice } from "../../../redux/slices/modal-reducer";
+import { modalSlice } from "../../../redux/slices/modal-slice";
 import { editTask as editTaskOnServer } from "../../../http/tasksAPI";
 
 const { TextArea } = Input;

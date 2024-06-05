@@ -1,5 +1,6 @@
 export interface IProject {
-  id: number | null;
+  id: number;
   title: string;
   description: string;
+  userId: number;
 }

@@ -14,17 +14,13 @@ enum taskTypes {
 }
 
 type InitStateType = {
-  projects: Array<IProject>;
-  selectedProject: number;
-  tasks: Array<any>;
+  tasks: Array<ITask>;
   newTaskText: string;
   taskType: string;
   status: string;
 };
 
 const initialState: InitStateType = {
-  projects: [],
-  selectedProject: 0,
   tasks: [],
   newTaskText: "",
   taskType: taskTypes.TASK,
@@ -48,21 +44,9 @@ export const taskSlice = createSlice({
       state.tasks = state.tasks.filter(task => task.id !== action.payload.id);
     },
 
-    setProjects(state, action) {
-      state.projects = action.payload
-    },
-
-    createProject(state, action:PayloadAction<IProject>) {
-      state.projects.push(action.payload)
-    },
-
     setTasks(state, action) {
       state.tasks = action.payload
     },
-
-    setActiveProject(state, action) {
-      state.selectedProject = action.payload
-    }
   }
 })
 

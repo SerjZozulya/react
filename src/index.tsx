@@ -10,10 +10,12 @@ const store = setupStore();
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+console.log('index')
 root.render(
-  <Provider store={store}>
-    <React.StrictMode>
+//  <Provider store={store}>
+
       <App />
-    </React.StrictMode>
-  </Provider>
+
+//  </Provider>
 );

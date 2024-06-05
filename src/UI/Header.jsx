@@ -2,7 +2,7 @@ import s from "./Header.module.css";
 import i from "../static/img/header.jpg";
 import { Button } from "antd";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { userSlice } from "../redux/slices/user-reducer";
+import { userSlice } from "../redux/slices/user-slice";
 
 const Header = (props) => {
   const dispatch = useAppDispatch()

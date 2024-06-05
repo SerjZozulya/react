@@ -2,7 +2,7 @@ import Navbar from "./Navbar";
 import Header from "./Header";
 import Modal from "./Modal";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { modalSlice } from "../redux/slices/modal-reducer";
+import { modalSlice } from "../redux/slices/modal-slice";
 import { Outlet } from "react-router-dom";
 import { MODAL_TYPES } from "../utils/consts";
 
