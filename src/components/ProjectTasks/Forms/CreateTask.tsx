@@ -4,8 +4,8 @@ import s from "./CreateTask.module.css";
 import dayjs from "dayjs";
 import { ITask } from "../../../models/ITask";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { taskSlice } from "../../../redux/reducers/tasks-reducer";
-import { modalSlice } from "../../../redux/reducers/modal-reducer";
+import { taskSlice } from "../../../redux/slices/tasks-slice";
+import { modalSlice } from "../../../redux/slices/modal-slice";
 import { createTask as createTaskOnServer } from "../../../http/tasksAPI";
 
 const { TextArea } = Input;
@@ -26,7 +26,7 @@ export default function CreateTask() {
     description: "",
     reporterId: user.user.id,
     assigneeId: user.user.id,
-    projectId: tasks.selectedProject,
+    projectId: user.user.selectedProject,
   };
 
   const [task, setTask] = useState(emptyTask);

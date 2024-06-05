@@ -6,23 +6,37 @@ import Filter from "../components/ProjectTasks/Filter/Filter";
 import { useAppSelector, useAppDispatch } from "../hooks/redux";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { usePosts } from "../hooks/usePosts";
-import { useEffect } from "react";
-import { fetchProjects, fetchTasks } from "../http/tasksAPI";
-import { taskSlice } from "../redux/reducers/tasks-reducer";
+import { useEffect, useState} from "react";
+import { fetchTasks } from "../http/tasksAPI";
+import { taskSlice } from "../redux/slices/tasks-slice";
+import { userSlice } from "../redux/slices/user-slice";
+import { projectsAPI } from "../redux/services/ProjectService";
 
 let AllTasks = () => {
+  console.log('All Tasks')
   const tasks = useAppSelector((state) => state.tasks);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    fetchProjects().then((data) => dispatch(taskSlice.actions.setProjects(data)));
-    fetchTasks(tasks.selectedProject).then((data) => dispatch(taskSlice.actions.setTasks(data)));
-  }, []);
+  const { data: projects, error, isLoading, isSuccess } = projectsAPI.useFetchAllProjectsQuery();
+  const [deleteProject, {}] = projectsAPI.useDeleteProjectMutation()
+  const [activeProjectId, setId] = useState(    localStorage.getItem("activeProjectId") || 0)
 
   const setActiveProject = (id) => {
-    dispatch(taskSlice.actions.setActiveProject(id))
+    dispatch(userSlice.actions.setActiveProject(id));
+    localStorage.setItem("activeProjectId", id)
     fetchTasks(id).then((data) => dispatch(taskSlice.actions.setTasks(data)));
-  }
+  };
+
+  const handleDelete = (id) => {
+    deleteProject(id)
+    fetchTasks(projects[0].id).then((data) => dispatch(taskSlice.actions.setTasks(data)));
+  };
+
+  const useFirstFetch = (id) => 
+    useEffect(() => {
+      fetchTasks(id).then((data) => dispatch(taskSlice.actions.setTasks(data)));
+      dispatch(userSlice.actions.setActiveProject(id));
+    }, []
+    )
 
   const [filter, setFilter] = useLocalStorage("filter", {
     search: "",
@@ -49,22 +63,30 @@ let AllTasks = () => {
 
   return (
     <div className={s.tasks}>
-      <Toolbar 
-        projects={tasks.projects}
-        setActiveProject={setActiveProject}
-      />
-      <Divider />
-      <div className={s.myTasksBlock}>
-        <div className={s.myTasksHeader}>
-          <div>My Tasks </div>
-          <Filter filter={filter} setFilter={setFilter} />
-        </div>
-        {taskItems.length === 0 ? (
-          <div className={s.emptyArray}>No tasks here!</div>
-        ) : (
-          <div>{taskItems}</div>
-        )}
-      </div>
+      {isLoading && <h1>ГРУЖУ...</h1>}
+      {error && <h1>ОШИБКА</h1>}
+      {projects && (
+        <>
+          <Toolbar
+            projects={projects}
+            setActiveProject={setActiveProject}
+            deleteProject={handleDelete}
+            firstFetch={useFirstFetch}
+          />
+          <Divider />
+          <div className={s.myTasksBlock}>
+            <div className={s.myTasksHeader}>
+              <div>My Tasks </div>
+              <Filter filter={filter} setFilter={setFilter} />
+            </div>
+            {taskItems.length === 0 ? (
+              <div className={s.emptyArray}>No tasks here!</div>
+            ) : (
+              <div>{taskItems}</div>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 };

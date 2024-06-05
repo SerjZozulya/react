@@ -7,7 +7,7 @@ export const registration = async (
   email: string,
   password: string
 ) => {
-  const { data } = await $host.post("api/user/registration", {
+  const { data } = await $host.post("api/users/registration", {
     name,
     lastName,
     email,
@@ -19,7 +19,7 @@ export const registration = async (
 };
 
 export const login = async (email: string, password: string) => {
-  const { data } = await $host.post("api/user/login", { email, password });
+  const { data } = await $host.post("api/users/login", { email, password });
   const token = JSON.parse(data).token
   localStorage.setItem("token",token);
   return jwtDecode(token);
@@ -27,7 +27,7 @@ export const login = async (email: string, password: string) => {
 
 export const check = async () => {
   try {
-    const { data } = await $authHost.get("api/user/auth");
+    const { data } = await $authHost.get("api/users/auth");
     localStorage.setItem("token", JSON.parse(data).token);
     return jwtDecode(JSON.parse(data).token);
   } catch (error: any) {

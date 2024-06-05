@@ -1,13 +1,15 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import {MODAL_TYPES} from "../../utils/consts"
+
+const initialState = {
+  isVisible: false,
+  form: MODAL_TYPES.CREATE_TASK_FORM,
+  data: {}
+}
 
 export const modalSlice = createSlice({
     name: 'modal',
-    initialState: {
-      isVisible: false,
-      form: MODAL_TYPES.CREATE_TASK_FORM,
-      data: {}
-    },
+    initialState,
     reducers: {
       setVisible(state, action) {
         state.isVisible = action.payload

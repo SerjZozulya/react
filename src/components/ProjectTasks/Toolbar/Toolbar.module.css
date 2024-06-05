@@ -7,3 +7,9 @@
 .select {
     width: 200px;
 }
+
+p {
+    font-style: italic;
+    font-weight: 400;
+    margin-left: auto;
+}

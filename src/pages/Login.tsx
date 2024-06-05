@@ -4,7 +4,7 @@ import { LOGIN_ROUTE } from "../utils/consts";
 import { useState } from "react";
 import { login, registration } from "../http/userAPI";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { userSlice } from "../redux/reducers/user-reducer";
+import { userSlice } from "../redux/slices/user-slice";
 import s from "./Login.module.css";
 
 const Login = () => {

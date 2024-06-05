@@ -9,6 +9,8 @@ const AppRouter = () => {
   const user = useAppSelector((state: any) => state.user);
   const element = user.isAuth ? <Layout /> : <Login />;
 
+  console.log('App router')
+
   const children: any = user.isAuth
     ? authRoutes.map(({ path, component }) => {
         let child = {

@@ -4,9 +4,9 @@ import { Button, Tooltip } from "antd";
 import { DeleteOutlined, EditFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { ITask } from "../../models/ITask";
-import { taskSlice } from "../../redux/reducers/tasks-reducer";
+import { taskSlice } from "../../redux/slices/tasks-slice";
 import { useAppDispatch } from "../../hooks/redux";
-import { modalSlice } from "../../redux/reducers/modal-reducer";
+import { modalSlice } from "../../redux/slices/modal-slice";
 import { deleteTaskFromServer } from "../../http/tasksAPI";
 import dayjs from "dayjs";
 import { MODAL_TYPES } from "../../utils/consts";
@@ -16,13 +16,13 @@ const Task = (task: ITask) => {
   const { deleteTask } = taskSlice.actions;
   const { setVisible, setForm, setData } = modalSlice.actions;
 
-  const removeRecord = () => {
+  const handleRemove = () => {
     deleteTaskFromServer(task.id).then((data) => {
       dispatch(deleteTask(task));
     });
   };
 
-  const openTaskEditor = () => {
+  const handleEdit = () => {
     dispatch(setVisible(true))
     dispatch(setForm(MODAL_TYPES.EDIT_TASK_FORM))
     dispatch(setData(task))
@@ -48,14 +48,14 @@ const Task = (task: ITask) => {
         <div className={s.options}>
           <Tooltip title="delete">
             <Button
-              onClick={removeRecord}
+              onClick={handleRemove}
               shape="circle"
               icon={<DeleteOutlined />}
             />
           </Tooltip>
           <Tooltip title="edit">
             <Button
-              onClick={openTaskEditor}
+              onClick={handleEdit}
               shape="circle"
               icon={<EditFilled />}
             />

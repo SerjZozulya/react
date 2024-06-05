@@ -6,8 +6,9 @@ import dayjs from "dayjs";
 
 const SingleTask: FC = () => {
   const posts = useAppSelector(state => state.tasks)
+  console.log(posts)
   const params: any = useParams();
-  const task: ITask = posts.tasks.find(
+  const task: any = posts.tasks.find(
     (element: ITask) => element.type + "-" + element.id === params.id
   );
 
